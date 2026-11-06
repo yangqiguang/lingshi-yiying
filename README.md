@@ -2,12 +2,6 @@
 
 面向运动骨折影像的辅助分析与康复随访原型：网页工作台 + 移动端 App 共用一套 Flask 后端与 SQLite 数据库，前端为原生 HTML/CSS/JS，App 为 uni-app 页面，检测模型以 ONNX Runtime 在本地推理。
 
-> **发布前还需完成两件事**
-> 1. 确认参赛材料中关于仓库状态的旧表述已同步改为本仓库地址；
-> 2. 首次提交用 GitHub 提供的 noreply 邮箱，避免把本机姓名与邮箱写进公开历史。
->
-> 仓库地址与 App 端本地调试地址已配置完毕（见第六节）。
-
 **公开仓库地址**：`https://github.com/yangqiguang/lingshi-yiying`
 
 ---
