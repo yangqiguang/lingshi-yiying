@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>灵视医影 · 个人康复端</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563eb'/><path d='M14 8h4v6h6v4h-6v6h-4v-6H8v-4h6z' fill='white'/></svg>">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="phone">
+
+  <!-- ============ 屏 0 · 启动页 ============ -->
+  <section class="screen splash dark full" id="splash">
+    <div class="sp-logo"><img src="assets/logo.png" alt="灵视医影" style="width:54px;height:54px;border-radius:14px;"></div>
+    <h1>灵视医影</h1>
+    <p>AI 驱动的运动骨折智能诊疗与康复决策平台<br>影像辅助识别 · 专业人员复核 · 康复档案 · 运动回归管理</p>
+    <div class="sp-foot">个人康复端 · 与医护工作台数据互通<br>本应用内容不构成医疗诊断，最终以执业医师意见为准</div>
+  </section>
+
+  <!-- ============ 屏 1 · 登录 / 注册 ============ -->
+  <section class="screen" id="login">
+    <div class="lg-scroll">
+
+      <!-- 品牌区 -->
+      <div class="lg-hero">
+        <div class="lg-brand">
+          <img src="assets/logo.png" alt="灵视医影">
+          <div>
+            <h2>灵视医影</h2>
+            <p>AI 骨折影像诊断与康复管理</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 表单卡片 -->
+      <div class="lg-card">
+        <div class="lg-title">登录 / 注册</div>
+
+        <div class="role-cards" id="roleSwitch">
+          <button class="rs on" data-as="patient" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4 3.4-6.4 7.5-6.4s7.5 2.4 7.5 6.4"/></svg>
+            <b>我是患者</b><em>报告 · 康复训练</em>
+          </button>
+          <button class="rs" data-as="staff" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13.5v1.5a4.5 4.5 0 0 0 9 0v-2"/><circle cx="19" cy="11" r="1.8"/></svg>
+            <b>我是医护</b><em>工作台 · 影像复核</em>
+          </button>
+        </div>
+
+        <div class="lg-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          <input id="phoneInput" type="text" inputmode="numeric" maxlength="11" placeholder="请输入手机号">
+        </div>
+
+        <div class="lg-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <input id="codeInput" type="password" maxlength="20" placeholder="验证码 / 密码">
+          <button class="eye" id="pwdEye" type="button" aria-label="显示密码">
+            <svg class="ic-on" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg>
+            <svg class="ic-off" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"/><path d="M9.9 5.7A9.7 9.7 0 0 1 12 5.5c6.4 0 10 6.5 10 6.5a17 17 0 0 1-3.3 4.1"/><path d="M6.3 7.4A16.6 16.6 0 0 0 2 12s3.6 6.5 10 6.5a9.9 9.9 0 0 0 3.2-.5"/><path d="M9.9 10a2.9 2.9 0 0 0 4 4"/></svg>
+          </button>
+          <button class="code-btn" id="codeBtn" type="button">获取验证码</button>
+        </div>
+
+        <div class="lg-err" id="loginErr"></div>
+
+        <button class="lg-btn" id="loginBtn" type="button">
+          <span class="lg-btn-txt">登 录</span>
+          <span class="lg-spin"></span>
+        </button>
+
+        <!-- 演示账号：一点即填，避免手打慢 -->
+        <div class="demo-accounts" id="demoHint">
+          <div class="da-title">演示账号 · 点击自动填入</div>
+          <div class="da-list">
+            <button class="quick-acct" type="button" data-acc="13800000001" data-as="staff">执业医师</button>
+            <button class="quick-acct" type="button" data-acc="13800000002" data-as="staff">影像技师</button>
+            <button class="quick-acct" type="button" data-acc="13800000003" data-as="staff">康复治疗师</button>
+            <button class="quick-acct" type="button" data-acc="13800000004" data-as="staff">机构管理员</button>
+            <button class="quick-acct" type="button" data-acc="13700000001" data-as="patient">患者</button>
+          </div>
+        </div>
+
+        <div class="agree" id="agreeRow">
+          <span class="disc" id="agreeDisc"></span>
+          <span>我已阅读并同意<a href="javascript:void(0)" data-doc="user">《用户协议》</a>与<a href="javascript:void(0)" data-doc="privacy">《隐私政策》</a>（医疗影像属敏感个人信息，需单独授权）</span>
+        </div>
+      </div>
+
+      <div class="lg-links">
+        <button class="link-btn" id="quickIn" type="button">仅浏览模式 · 不登录 ›</button>
+        <button class="link-btn" id="goRegister" type="button">没有账号？申请注册 ›</button>
+      </div>
+
+      <div class="lg-foot">
+        本应用为全国大学生数字媒体科技作品及创意竞赛参赛作品<br>
+        影像与报告均由执业医师复核签发，AI 结果仅作辅助参考<br>
+        本应用内容不构成医疗诊断或回归运动依据
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 · 申请注册（管理员审核） ============ -->
+  <section class="screen" id="register">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">申请注册</div><button class="nav-right"></button></div>
+    <div class="screen-body no-tab" style="padding:20px;">
+      <div class="reg-tip">填写信息后提交注册申请，由机构管理员审核，审核通过后账号方可登录。</div>
+      <div class="reg-field"><label>手机号</label><input id="regPhone" type="tel" inputmode="numeric" placeholder="请输入 11 位手机号"></div>
+      <div class="reg-field"><label>姓名</label><input id="regName" type="text" placeholder="请输入真实姓名"></div>
+      <div class="reg-field"><label>机构</label><input id="regOrg" type="text" placeholder="如 XX学院合作医院"></div>
+      <label class="reg-label">注册身份</label>
+      <div class="role-switch" id="regRole">
+        <button class="rs on" data-as="患者" type="button">患者</button>
+        <button class="rs" data-as="影像技师" type="button">影像技师</button>
+        <button class="rs" data-as="执业医师" type="button">执业医师</button>
+        <button class="rs" data-as="康复治疗师" type="button">康复治疗师</button>
+      </div>
+      <div class="reg-field"><label>设置密码</label><input id="regPwd" type="password" placeholder="请设置 8 位以上密码"></div>
+      <button class="btn btn-primary btn-block" id="regSubmit" type="button" style="margin-top:8px;">提交注册申请</button>
+      <p class="small" style="text-align:center;margin-top:12px;color:var(--mut);">账号由管理员统一分发，审核结果以机构通知为准</p>
+    </div>
+  </section>
+
+  <!-- ============ Tab1 · 首页 ============ -->
+  <section class="screen dark" id="home" data-tab="home">
+    <div class="screen-body" style="padding:0 0 92px;">
+      <div class="home-head">
+        <div class="home-top">
+          <div><h3 id="homeGreet">宋同学，早上好</h3><p id="homeGreetSub">今天也要坚持康复训练</p></div>
+          <button class="bell" type="button" data-go="messages" aria-label="消息">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <span class="dot">3</span>
+          </button>
+        </div>
+      </div>
+      <div style="padding:0 14px;">
+        <div class="stage-card">
+          <div class="stage-top">
+            <div>
+              <div class="case" id="caseNoText">病例号 LSY-20260910-008</div>
+              <h4 id="casePart">左腕桡骨远端骨折</h4>
+              <span class="badge teal">康复中</span>
+              <span class="badge amber" style="margin-left:6px;">第 3 周 · 活动恢复期</span>
+            </div>
+          </div>
+          <div class="ring-wrap">
+            <div class="ring">
+              <svg width="88" height="88" viewBox="0 0 88 88">
+                <circle cx="44" cy="44" r="38" fill="none" stroke="#edf0f5" stroke-width="8"/>
+                <circle id="homeRing" cx="44" cy="44" r="38" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" stroke-dasharray="186.3 238.8" transform="rotate(-90 44 44)"/>
+              </svg>
+              <div class="rv"><b id="homeScore">78</b><span>恢复度 / 分</span></div>
+            </div>
+            <div class="ring-info">
+              <div class="goal">目标 <b style="color:var(--ink)">90 分</b> 可回归训练<br>当前处于活动恢复期</div>
+              <div class="up" style="margin-top:6px;">每次打卡 +1 分，复评后重新评估</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card today-card">
+          <div class="tc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><rect x="2" y="6" width="5" height="12" rx="2.5" transform="rotate(-20 4.5 12)"/><rect x="17" y="6" width="5" height="12" rx="2.5" transform="rotate(20 19.5 12)"/></svg></div>
+          <div class="tc"><b>今日康复训练</b><p>3 个动作 · 约 12 分钟 · 已完成 <span id="homeDone">0/3</span></p>
+            <div class="progress" style="margin-top:7px;"><i id="homeProg" style="width:0%"></i></div>
+          </div>
+          <button class="btn btn-primary btn-sm" type="button" data-go="today">开始</button>
+        </div>
+
+        <div class="card ai-banner">
+          <div class="ai-b-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none"/><path d="M9.5 15.5c.8.7 1.6 1 2.5 1s1.7-.3 2.5-1"/></svg></div>
+          <div class="ai-b-txt"><b>AI 康复助手</b><p>基于 DeepSeek 大模型 · 解读影像 · 康复建议 · 恢复时间</p></div>
+          <button class="btn btn-sm ai-b-btn" type="button" data-go="ai">问问 AI</button>
+        </div>
+
+        <div class="card">
+          <div class="quick-grid">
+            <button class="quick" type="button" data-go="viewer"><span class="qi c1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg></span><span>影像报告</span></button>
+            <button class="quick" type="button" data-go="plan"><span class="qi c2"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><path d="M8 11h3M8 15h3M14 11h2M14 15h2"/></svg></span><span>康复计划</span></button>
+            <button class="quick" type="button" data-go="curve"><span class="qi c3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-6 4 3 6-8"/><path d="M18 6h3v3"/></svg></span><span>恢复曲线</span></button>
+            <button class="quick" type="button" data-go="visit"><span class="qi c4"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>复诊提醒</span></button>
+            <button class="quick" type="button" data-go="selfcheck"><span class="qi c5"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg></span><span>疼痛自评</span></button>
+            <button class="quick" type="button" data-go="doctors"><span class="qi c6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><span>联系医生</span></button>
+            <button class="quick" type="button" data-go="today"><span class="qi c7"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span>训练打卡</span></button>
+            <button class="quick" type="button" data-go="ladder"><span class="qi c8"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4l7 3-7 3"/><path d="M12 12l7-2v7l-7 2z"/></svg></span><span>回归阶梯</span></button>
+          </div>
+        </div>
+
+        <div class="visit-card">
+          <div class="vi"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
+          <div style="flex:1;">
+            <b style="font-size:13.5px;">下次复查 10-08（周四）</b>
+            <p style="font-size:12px;color:#92600a;margin-top:2px;">复查 X 线 · 请携带既往影像</p>
+          </div>
+          <button class="btn btn-sm remind-trigger" id="remindBtn" style="background:#fff;color:#b45309;border:1px solid #fde68a;" type="button">设提醒</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">医生最新留言</div>
+          <div class="doc-msg">
+            <div class="av">张</div>
+            <div class="dm"><b>康复治疗师 · 张同学</b><br>本周可加入握力球训练，腕部仍避免负重与旋转发力，有不适随时告诉我。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Tab2 · 影像与报告（病例列表） ============ -->
+  <section class="screen" id="report" data-tab="report">
+    <div class="screen-body">
+      <h3 style="font-size:20px;padding:4px 2px 2px;">影像与报告</h3>
+      <p class="sub small" style="padding:0 2px 12px;">仅展示医生已复核 / 已签发的影像与报告</p>
+      <div class="search-bar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input id="repSearch" type="text" placeholder="搜索病例号 / 部位">
+      </div>
+      <div class="filter-tabs" id="repFilter">
+        <button class="ft on" type="button" data-f="all">全部</button>
+        <button class="ft" type="button" data-f="wrist">腕部</button>
+        <button class="ft" type="button" data-f="ankle">踝部</button>
+      </div>
+      <div class="card case-card" data-type="wrist" data-go="viewer" style="cursor:pointer;">
+        <img class="thumb" src="assets/xray-followup.webp" alt="复查腕部X光">
+        <div class="cc">
+          <div class="no">LSY-20260910-008</div>
+          <p>左腕 · 桡骨远端</p>
+          <p style="margin-top:5px;"><span class="badge teal">康复中</span> <span class="badge blue" style="margin-left:5px;">医生已签发</span></p>
+          <p style="margin-top:5px;color:var(--mut);">最近影像 2026-09-24</p>
+        </div>
+        <svg class="carr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="card case-card" data-type="ankle" data-archive="ankle" style="cursor:pointer;">
+        <div class="thumb" style="display:flex;align-items:center;justify-content:center;color:#64748b;background:#1e293b;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg>
+        </div>
+        <div class="cc">
+          <div class="no">LSY-20251120-021</div>
+          <p>右踝 · 外踝扭伤（既往）</p>
+          <p style="margin-top:5px;"><span class="badge gray">已结案</span> <span class="badge gray" style="margin-left:5px;">医生已签发</span></p>
+          <p style="margin-top:5px;color:var(--mut);">结案 2026-01-12</p>
+        </div>
+        <svg class="carr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Tab3 · 康复训练（计划总览） ============ -->
+  <section class="screen" id="plan" data-tab="plan">
+    <div class="screen-body">
+      <h3 style="font-size:20px;padding:4px 2px 2px;">康复训练</h3>
+      <p class="sub small" style="padding:0 2px 12px;">病例 LSY-20260910-008 · 第 3 周 · 活动恢复期</p>
+
+      <div class="card">
+        <div class="card-title">康复阶段</div>
+        <div class="phase-strip">
+          <div class="phase-node done"><div class="pn-dot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div><div class="pn-l">保护期<br>1–2 周</div></div>
+          <div class="phase-node cur"><div class="pn-dot">3</div><div class="pn-l">活动恢复期<br>3–4 周</div></div>
+          <div class="phase-node"><div class="pn-dot">5</div><div class="pn-l">力量回归期<br>5–6 周</div></div>
+          <div class="phase-node"><div class="pn-dot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="pn-l">功能评估</div></div>
+          <div class="phase-node"><div class="pn-dot"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4H4v16h2M18 4h2v16h-2M8 12h8"/></svg></div><div class="pn-l">回归运动</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">本周计划<span class="more">第 3 周</span></div>
+        <div class="week-row">
+          <div class="day done"><div class="dw">周一</div><div class="dn">14</div><div class="dc">3 项</div></div>
+          <div class="day done"><div class="dw">周二</div><div class="dn">15</div><div class="dc">3 项</div></div>
+          <div class="day done"><div class="dw">周三</div><div class="dn">16</div><div class="dc">3 项</div></div>
+          <div class="day done"><div class="dw">周四</div><div class="dn">17</div><div class="dc">3 项</div></div>
+          <div class="day today"><div class="dw">周五</div><div class="dn">18</div><div class="dc">1/3</div></div>
+          <div class="day"><div class="dw">周六</div><div class="dn">19</div><div class="dc">休息</div></div>
+          <div class="day"><div class="dw">周日</div><div class="dn">20</div><div class="dc">3 项</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">运动回归七级阶梯<span class="more" data-go="ladder" style="cursor:pointer;">查看全部 ›</span></div>
+        <div class="ladder">
+          <div class="lad-step done"><div class="ls-rail"><div class="ls-dot done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>1 · 日常活动</b><p>穿衣、进餐等基本自理</p></div></div>
+          <div class="lad-step done"><div class="ls-rail"><div class="ls-dot done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>2 · 活动度训练</b><p>腕关节主动屈伸、手指屈伸</p></div></div>
+          <div class="lad-step cur"><div class="ls-rail"><div class="ls-dot cur">3</div><div class="ls-line"></div></div><div class="ls-card"><b>3 · 基础力量（当前）</b><p>握力球、等长收缩，无痛无肿为度</p></div></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="button" data-go="today" style="margin-bottom:10px;">开始今日训练</button>
+      <button class="btn btn-ghost btn-block" type="button" data-go="curve">查看恢复度曲线</button>
+    </div>
+  </section>
+
+  <!-- ============ Tab4 · 我的 ============ -->
+  <section class="screen dark" id="me" data-tab="me">
+    <div class="screen-body" style="padding:0 0 92px;">
+      <div class="me-head">
+        <div class="me-av" id="meAv">王</div>
+        <div><h3 id="meName">宋同学</h3><p id="meSub">篮球 · 校队　|　左腕康复中</p></div>
+      </div>
+      <div class="me-summary">
+        <div class="ms"><b>活动恢复期</b><span>当前阶段</span></div>
+        <div class="ms"><b id="meScore">78</b><span>恢复度 / 分</span></div>
+        <div class="ms"><b id="meStreak">12</b><span>连续打卡 / 天</span></div>
+      </div>
+      <div style="padding:0 14px;">
+        <div class="card" style="padding:4px 15px;">
+          <div class="cell" data-go="profile" style="cursor:pointer;"><span class="ci blue"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></span><div class="ct"><b>个人资料与受伤信息</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell" data-go="timeline" style="cursor:pointer;"><span class="ci teal"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="ct"><b>康复档案时间线</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell" data-go="doctors" style="cursor:pointer;"><span class="ci amber"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 5.5 4.5 4.5 0 0 0 2 8.5c0 2.1 1.5 4 3 5.5l7 7z"/></svg></span><div class="ct"><b>我的医生与就诊机构</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell" data-go="messages" style="cursor:pointer;"><span class="ci gray"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div class="ct"><b>消息通知</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell" data-go="ai" style="cursor:pointer;"><span class="ci teal"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none"/><path d="M9.5 15.5c.8.7 1.6 1 2.5 1s1.7-.3 2.5-1"/></svg></span><div class="ct"><b>AI 康复助手</b><span style="color:var(--mut);font-size:12px;">DeepSeek · 辅助参考</span></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell admin-only" data-go="admin" style="cursor:pointer;"><span class="ci blue"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div class="ct"><b>账号管理</b><span style="color:var(--mut);font-size:12px;">仅管理员可见</span></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        </div>
+        <div class="card" style="padding:4px 15px;">
+          <div class="cell" data-go="settings" style="cursor:pointer;"><span class="ci gray"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span><div class="ct"><b>隐私与授权</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell" data-go="about" style="cursor:pointer;"><span class="ci blue"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg></span><div class="ct"><b>关于灵视医影</b><span style="color:var(--mut);font-size:12px;">平台介绍 · 技术 · 合规</span></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        </div>
+        <div class="card" style="padding:4px 15px;">
+          <div class="cell" data-switch style="cursor:pointer;"><span class="ci blue"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><path d="M9 12h12M17 8l4 4-4 4"/></svg></span><div class="ct"><b>切换账号</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+          <div class="cell logout-row" data-logout style="cursor:pointer;justify-content:center;"><span class="ci red" style="width:30px;height:30px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg></span>退出登录</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 · 账号管理（管理员） ============ -->
+  <section class="screen" id="admin">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">账号管理</div><button class="nav-right"></button></div>
+    <div class="screen-body no-tab" style="padding:14px;">
+      <div class="card" style="display:flex;justify-content:space-around;padding:16px 8px;">
+        <div style="text-align:center;"><b id="statTotal" style="font-size:22px;color:var(--blue);">5</b><div style="font-size:12px;color:var(--sub);margin-top:2px;">总账号</div></div>
+        <div style="text-align:center;"><b id="statPatient" style="font-size:22px;color:var(--teal-d);">3</b><div style="font-size:12px;color:var(--sub);margin-top:2px;">患者</div></div>
+        <div style="text-align:center;"><b id="statStaff" style="font-size:22px;color:var(--amber);">2</b><div style="font-size:12px;color:var(--sub);margin-top:2px;">医护</div></div>
+      </div>
+      <div id="pendingWrap" style="display:none;">
+        <div style="font-size:13px;color:var(--sub);margin:16px 2px 8px;">待审核申请 <span id="pendingCount"></span></div>
+        <div class="card" id="pendingBox" style="padding:2px 15px;"></div>
+      </div>
+      <div style="font-size:13px;color:var(--sub);margin:16px 2px 8px;">全部账号</div>
+      <div class="card" style="padding:2px 15px;">
+        <div id="acctBox"></div>
+      </div>
+      <p style="font-size:12px;color:var(--mut);margin:14px 2px;line-height:1.7;">演示账号：管理员 88888888 / 12345678；患者 13800000910 / 验证码 1234；医护 doctor、rehab / 12345678。被停用账号将无法登录。</p>
+    </div>
+  </section>
+
+  <!-- ============ 屏 3 · 消息中心 ============ -->
+  <section class="screen" id="messages">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">消息中心</div><button class="nav-right" id="markRead" type="button">全部已读</button></div>
+    <div class="screen-body no-tab">
+      <div class="msg-group">报告与方案</div>
+      <div class="card" style="padding:2px 15px;">
+        <div class="msg-item" data-go="reportDetail" style="cursor:pointer;"><span class="mi" style="background:var(--blue-l);color:var(--blue);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg></span><span class="unread"></span><div class="mc"><div class="t"><b>复查影像报告已签发</b><time data-rel="-1">昨天</time></div><p>您 <b data-date="follow">09-24</b> 的复查影像报告已由执业医师签发，点击查看。</p></div></div>
+        <div class="msg-item" data-go="plan" style="cursor:pointer;"><span class="mi" style="background:var(--teal-l);color:var(--teal-d);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><rect x="2" y="6" width="5" height="12" rx="2.5" transform="rotate(-20 4.5 12)"/><rect x="17" y="6" width="5" height="12" rx="2.5" transform="rotate(20 19.5 12)"/></svg></span><span class="unread"></span><div class="mc"><div class="t"><b>康复计划已更新</b><time data-rel="-2">前天</time></div><p>康复治疗师更新了第 3–4 周计划，本周加入握力球训练。</p></div></div>
+      </div>
+      <div class="msg-group">提醒与预警</div>
+      <div class="card" style="padding:2px 15px;">
+        <div class="msg-item" data-go="visit" style="cursor:pointer;"><span class="mi" style="background:var(--amber-l);color:#b45309;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span class="unread"></span><div class="mc"><div class="t"><b>复查 X 线提醒</b><time data-rel="-3">09-16</time></div><p><b data-date="next">2026-10-08</b>（周四）09:00 复查 X 线，请携带既往影像资料。</p></div></div>
+        <div class="msg-item" data-go="doctors" style="cursor:pointer;"><span class="mi" style="background:var(--red-l);color:var(--red);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><div class="mc"><div class="t"><b>疼痛评分偏高预警</b><time data-rel="-5">09-15</time></div><p>您连续两次疼痛评分偏高，建议暂停训练并联系治疗师。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 4 · 复诊提醒详情 ============ -->
+  <section class="screen" id="visit">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">复诊提醒</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="card" style="text-align:center;padding:22px 16px;">
+        <span class="badge amber">复查 X 线</span>
+        <div style="font-size:26px;font-weight:800;margin:12px 0 2px;">2026-10-08</div>
+        <div class="sub">周四 · 上午 09:00</div>
+        <div class="progress" style="margin-top:16px;"><i id="visitProg" style="width:61%;background:linear-gradient(90deg,#f59e0b,#f59e0b);"></i></div>
+        <p class="small muted" style="margin-top:8px;">距复查还有 20 天</p>
+      </div>
+      <div class="card">
+        <dl class="kv2">
+          <dt>就诊机构</dt><dd>XX学院合作医院</dd>
+          <dt>科室</dt><dd>运动创伤 / 康复科</dd>
+          <dt>检查项目</dt><dd>左腕 X 线正侧位复查</dd>
+          <dt>需携带</dt><dd>既往影像、病历本</dd>
+          <dt>注意事项</dt><dd>穿宽松衣物，无需空腹；建议家属陪同</dd>
+        </dl>
+      </div>
+      <div class="card" style="background:var(--blue-l);">
+        <p class="small" style="color:var(--blue-d);line-height:1.7;">复查用于评估骨折愈合情况，由执业医师确认后决定是否进入下一康复阶段，请勿自行提前负重训练。</p>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-ghost remind-trigger" style="flex:1;" type="button">设为日历提醒</button>
+        <button class="btn btn-primary" style="flex:1.4;" type="button" data-go="doctors">联系医生</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 6 · 影像查看器 ============ -->
+  <section class="screen" id="viewer">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">影像查看</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="phase-tabs">
+        <button class="pt on" id="tabInitial" type="button">初诊 · 09-10</button>
+        <button class="pt" id="tabFollow" type="button">复查 · 09-24</button>
+      </div>
+      <div class="viewer-stage" id="viewerStage">
+        <div class="vs-inner" id="vsInner">
+          <img class="vx" id="viewerImg" src="assets/xray-initial.webp" alt="左腕X光">
+          <div class="ai-frame" id="aiFrame"><span class="ftag" id="aiTag">桡骨远端疑似骨折 · 0.83</span></div>
+        </div>
+        <span class="zoom-badge" id="zoomLevel"></span>
+      </div>
+      <div class="viewer-tools">
+        <button class="vtool on" id="toggleFrame" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>标注层</button>
+        <button class="vtool" id="zoomBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>缩放查看</button>
+        <button class="vtool" id="detectBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>AI 识别</button>
+      </div>
+      <div class="viewer-info"><span id="viewerDate">拍摄日期 2026-09-10</span><span>左腕 · X 光正位</span><span id="detectStatus" style="display:none;"></span></div>
+      <button class="btn btn-primary btn-block" type="button" data-go="reportDetail" style="margin-top:14px;">查看结构化报告</button>
+      <p class="small muted" style="text-align:center;margin-top:12px;line-height:1.7;">影像与标注为辅助参考，最终以执业医师意见为准</p>
+    </div>
+  </section>
+
+  <!-- ============ 屏 7 · 前后对比 ============ -->
+  <section class="screen compare-screen no-status" id="compare">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">影像前后对比</div><div class="nav-right"></div></div>
+    <div class="compare-stage" id="compareStage">
+      <div class="cl"><img src="assets/xray-followup.webp" alt="复查"></div>
+      <div class="cl ctop" id="cmpTop"><img src="assets/xray-initial.webp" alt="初诊"></div>
+      <span class="cmp-tip l">09-10 初诊 · 骨折线清晰</span>
+      <span class="cmp-tip r">09-24 复查 · 骨折线模糊</span>
+      <div class="cmp-handle" id="cmpHandle">
+        <div class="cmp-vline"></div>
+        <div class="cmp-knob"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l-6 6 6 6M14 6l6 6-6 6"/></svg></div>
+      </div>
+    </div>
+    <div class="cmp-metrics">
+      <div class="grid3">
+        <div class="cmp-m"><b>42 → 78</b><span>综合恢复度 / 分</span></div>
+        <div class="cmp-m"><b class="teal">↓ 31%</b><span>损伤区域面积</span></div>
+        <div class="cmp-m"><b>14<b style="font-size:12px;color:#94a3b8;"> 天</b></b><span>两次影像间隔</span></div>
+      </div>
+      <button class="btn" style="background:#2563eb;color:#fff;width:100%;height:44px;margin-top:12px;border-radius:11px;font-weight:600;" type="button" data-go="reportDetail">查看完整报告</button>
+    </div>
+  </section>
+
+  <!-- ============ 屏 8 · 结构化报告 ============ -->
+  <section class="screen" id="reportDetail">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">结构化报告</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="card">
+        <div class="report-head">
+          <div class="seal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+          <div style="flex:1;"><b style="font-size:15px;">影像检查报告（已签发）</b><p class="small sub" style="margin-top:3px;">执业医师 杨同学 · 签发于 2026-09-24</p></div>
+          <span class="badge teal">已签发</span>
+        </div>
+        <dl class="kv2">
+          <dt>报告编号</dt><dd>RPT-20260924-008</dd>
+          <dt>年龄 / 性别</dt><dd>21 岁 / 男</dd>
+          <dt>运动项目</dt><dd>篮球</dd>
+          <dt>受伤日期</dt><dd>2026-09-10</dd>
+          <dt>侧别 / 部位</dt><dd>左侧 · 腕关节</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <div class="rpt-sec"><h5>影像所见</h5><p>左腕 X 线正位示：桡骨远端骨皮质连续性中断，未见明显移位；复查片骨折线模糊，周围可见骨痂形成，周围软组织肿胀较前消退。</p></div>
+        <div class="rpt-sec">
+          <h5>AI 辅助结果</h5>
+          <div class="ai-box-note"><span class="tag">辅助参考</span><br>桡骨远端疑似骨折，置信度 0.83；复查对比损伤区域面积缩小约 31%。本结果由算法生成，最终以执业医师意见为准。</div>
+        </div>
+        <div class="rpt-sec"><h5>诊断结论（医生）</h5><p><b>左腕桡骨远端骨折（闭合性），复查示愈合中。</b></p></div>
+        <div class="rpt-sec"><h5>处理建议</h5><ul><li>继续保护性制动，循序渐进行腕关节活动度训练；</li><li>配合消肿与握力球训练，以无痛、不肿为度；</li><li>2026-10-08 复查 X 线，由医生评估是否进入力量回归期。</li></ul></div>
+        <div class="forbid-box" style="margin-top:12px;">
+          <h5><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg>现阶段禁忌动作</h5>
+          <ul><li>患腕负重（俯卧撑、撑地）</li><li>前臂 / 腕部旋转发力</li><li>篮球对抗与接球冲击</li><li>提举重物</li></ul>
+        </div>
+        <p class="rpt-foot" style="margin-top:12px;">本报告由执业医师复核签发，AI 内容仅作辅助参考，不构成医疗诊断或回归运动依据。</p>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-ghost btn-sm" style="flex:1;" type="button" data-toast="报告已保存为图片（演示）">保存图片</button>
+        <button class="btn btn-ghost btn-sm" style="flex:1;" type="button" data-toast="已分享给教练（演示）">分享教练</button>
+        <button class="btn btn-primary btn-sm" style="flex:1;" type="button" data-go="doctors">我有疑问</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 10 · 动作详情 ============ -->
+  <section class="screen" id="exercise">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">动作详情</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="ex-hero">
+        <div style="width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(37,99,235,.18);">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
+        </div>
+        <button class="play" type="button" data-toast="示范视频为演示占位"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></button>
+      </div>
+      <h3 style="font-size:18px;">握力球训练 <span class="badge teal" style="margin-left:6px;">第 3 周</span></h3>
+      <div class="ex-stat" style="margin-top:12px;">
+        <div class="es"><b>3 组</b><span>组数</span></div>
+        <div class="es"><b>15 次</b><span>每组次数</span></div>
+        <div class="es"><b>30 秒</b><span>组间休息</span></div>
+      </div>
+      <div class="card">
+        <div class="rpt-sec"><h5>训练目的</h5><p class="kpts">维持前臂与手部肌力，促进消肿与血液循环。</p></div>
+        <div class="rpt-sec"><h5>动作要领</h5><ul class="kpts"><li>手握软式握力球，缓慢握紧至最大耐受；</li><li>保持 3 秒，再缓慢放松至手指完全张开；</li><li>配合呼吸，不要憋气，左右交替进行。</li></ul></div>
+        <div class="rpt-sec" style="margin-bottom:0;"><h5>注意事项</h5><p class="kpts">以“无痛、不肿”为度，训练后可冰敷 10–15 分钟。</p></div>
+      </div>
+      <div class="forbid-box">
+        <h5><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg>出现以下情况立即停止</h5>
+        <ul><li>腕部出现锐痛或放射痛</li><li>训练后肿胀、疼痛明显加重</li><li>患腕负重或旋转发力</li></ul>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-ghost" style="flex:1;" type="button" data-toast="当前已是本组第一个动作">上一个</button>
+        <button class="btn btn-teal" style="flex:1.5;" id="markEx" type="button">标记完成</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 11 · 今日训练打卡 ============ -->
+  <section class="screen" id="today">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">今日训练</div><button class="nav-right" id="pauseBtn" type="button">暂停</button></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="train-top">
+        <div class="prog-no">动作 <b id="exIndex">1</b> / 3</div>
+        <div class="dots3" id="dots"><i class="on"></i><i></i><i></i></div>
+      </div>
+      <div class="ex-big">
+        <div class="ex-hero" style="height:180px;">
+          <div style="width:88px;height:88px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(37,99,235,.18);">
+            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
+          </div>
+          <button class="play" type="button" data-toast="示范视频为演示占位"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <h3 id="exName">腕关节主动屈伸</h3>
+        <div class="sets" id="exSets">3 组 × 15 次</div>
+        <p class="small muted">跟随示范缓慢活动，幅度以无痛为限</p>
+      </div>
+      <div class="card" style="padding:6px 15px;">
+        <div class="cell" data-go="exercise" style="cursor:pointer;"><span class="ci teal" id="st0"><b style="font-size:14px;">1</b></span><div class="ct"><b>腕关节主动屈伸</b><p>3 组 × 15 次</p></div><span class="small" id="tag0" style="color:var(--blue);font-weight:600;">进行中</span></div>
+        <div class="cell" data-go="exercise" style="cursor:pointer;"><span class="ci gray" id="st1"><b style="font-size:14px;">2</b></span><div class="ct"><b>握力球训练</b><p>3 组 × 15 次</p></div><span class="small muted" id="tag1">待完成</span></div>
+        <div class="cell" data-go="exercise" style="cursor:pointer;"><span class="ci gray" id="st2"><b style="font-size:14px;">3</b></span><div class="ct"><b>手指屈伸训练</b><p>3 组 × 20 次</p></div><span class="small muted" id="tag2">待完成</span></div>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-primary btn-block" id="nextEx" type="button">完成本动作，下一个</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 12 · 训练后自评 ============ -->
+  <section class="screen" id="selfcheck">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">训练后自评</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="card" style="background:var(--blue-l);">
+        <p class="small" style="color:var(--blue-d);line-height:1.7;">完成今日训练，请如实反馈身体反应，数据将回传给康复治疗师用于调整方案。</p>
+      </div>
+      <div class="card">
+        <div class="scale-q">
+          <div class="sq-top"><b>疼痛程度（VAS）</b><span class="sq-val" id="vasVal" style="color:var(--amber);">3</span></div>
+          <input type="range" id="vas" min="0" max="10" value="3">
+          <div class="ends"><span>0 · 无痛</span><span>10 · 剧痛</span></div>
+        </div>
+        <div class="scale-q">
+          <div class="sq-top"><b>肿胀程度</b><span class="sq-val" id="swellVal" style="color:var(--amber);">2</span></div>
+          <input type="range" id="swell" min="0" max="10" value="2">
+          <div class="ends"><span>0 · 无肿胀</span><span>10 · 明显肿胀</span></div>
+        </div>
+        <div class="scale-q" style="margin-bottom:4px;">
+          <div class="sq-top"><b>活动度感受</b><span class="sq-val" id="mobVal">6</span></div>
+          <input type="range" id="mob" min="0" max="10" value="6" style="background:linear-gradient(90deg,#bfdbfe,#2563eb);">
+          <div class="ends"><span>0 · 受限明显</span><span>10 · 基本正常</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">本次训练是否有不适？</div>
+        <textarea rows="2" style="width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;resize:none;font-size:13px;" placeholder="选填，如锐痛、弹响、麻木等"></textarea>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-primary btn-block" id="submitCheck" type="button">提交打卡</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 13 · 打卡成功 ============ -->
+  <section class="screen done-screen dark full" id="done">
+    <div class="done-check"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+    <h2 id="doneTitle">今日训练已完成</h2>
+    <div class="ds-sub" id="doneSub">坚持就是重返球场最快的路</div>
+    <div class="done-stats">
+      <div class="done-stat"><b id="doneStreak">12</b><span>连续打卡 / 天</span></div>
+      <div class="done-stat"><b id="doneRate">100%</b><span>本周完成率</span></div>
+      <div class="done-stat"><b id="doneMin">36</b><span>累计 / 分钟</span></div>
+    </div>
+    <div class="ds-sub" style="margin-top:-12px;" id="doneExtra">本次打卡后综合恢复度 78 分（<b>+1</b>）</div>
+    <div style="width:100%;margin-top:26px;">
+      <button class="btn btn-block" type="button" data-go="curve" style="margin-bottom:10px;">查看恢复度曲线</button>
+      <button class="btn ghost btn-block" type="button" data-go="home">返回首页</button>
+    </div>
+  </section>
+
+  <!-- ============ 屏 14 · 恢复度曲线 ============ -->
+  <section class="screen" id="curve">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">恢复度曲线</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="card">
+        <div class="card-title">综合恢复度</div>
+        <div class="chart-box" id="chartRecovery"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">分维度评估</div>
+        <div class="dim-bar"><div class="db-top"><span>关节活动度</span><b style="color:var(--blue);">72%</b></div><div class="progress"><i style="width:72%;"></i></div></div>
+        <div class="dim-bar"><div class="db-top"><span>握力 / 肌力</span><b style="color:var(--teal-d);">65%</b></div><div class="progress"><i style="width:65%;background:linear-gradient(90deg,#2dd4bf,#0ea5a0);"></i></div></div>
+        <div class="dim-bar" style="margin-bottom:0;"><div class="db-top"><span>症状改善（疼痛 / 肿胀）</span><b style="color:#b45309;">82%</b></div><div class="progress"><i style="width:82%;background:linear-gradient(90deg,#fcd34d,#f59e0b);"></i></div></div>
+      </div>
+      <p class="small muted" style="line-height:1.7;padding:0 4px;">综合恢复度由复评与日常自评数据计算，仅供参考；达到 90 分且经执业医师评估通过后，方可回归训练，最终以医生评估为准。</p>
+    </div>
+  </section>
+
+  <!-- ============ 屏 15 · 回归阶梯 ============ -->
+  <section class="screen" id="ladder">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">运动回归阶梯</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="card">
+        <div class="card-title">七级回归阶梯</div>
+        <div class="ladder">
+          <div class="lad-step done"><div class="ls-rail"><div class="ls-dot done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>1 · 日常活动</b><p>生活基本自理、静止无痛 · <span class="badge teal">已通过</span></p></div></div>
+          <div class="lad-step done"><div class="ls-rail"><div class="ls-dot done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>2 · 活动度训练</b><p>腕关节活动度达健侧 60% · <span class="badge teal">已通过</span></p></div></div>
+          <div class="lad-step cur"><div class="ls-rail"><div class="ls-dot cur">3</div><div class="ls-line"></div></div><div class="ls-card"><b>3 · 基础力量</b><p>准入：握力达健侧 70%、训练无痛无肿 · <span class="badge amber">当前</span></p></div></div>
+          <div class="lad-step"><div class="ls-rail"><div class="ls-dot lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>4 · 跑跳训练</b><p>待解锁：力量达健侧 80%、心肺适应良好</p></div></div>
+          <div class="lad-step"><div class="ls-rail"><div class="ls-dot lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>5 · 变向训练</b><p>待解锁：跑跳无不适、平衡与本体感觉达标</p></div></div>
+          <div class="lad-step"><div class="ls-rail"><div class="ls-dot lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div class="ls-line"></div></div><div class="ls-card"><b>6 · 对抗训练</b><p>高风险，须执业医师确认后解锁</p></div></div>
+          <div class="lad-step"><div class="ls-rail"><div class="ls-dot lock"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div></div><div class="ls-card"><b>7 · 专项 / 比赛</b><p>待解锁：恢复度 ≥ 90，治疗师与教练共同评估</p></div></div>
+        </div>
+      </div>
+      <div class="card" style="background:var(--amber-l);">
+        <p class="small" style="color:#92600a;line-height:1.7;">逐级通过、不可跳级；系统仅记录与提醒，不会自动批准回归，每一级均由医生 / 治疗师评估后解锁。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 17 · 个人资料 ============ -->
+  <section class="screen" id="profile">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">个人资料</div><button class="nav-right" id="editProfile" type="button">编辑</button></div>
+    <div class="screen-body no-tab">
+      <div class="card"><div class="card-title">基本资料</div>
+        <dl class="kv2"><dt>昵称</dt><dd>宋同学</dd><dt>性别</dt><dd>男</dd><dt>年龄</dt><dd>21 岁</dd><dt>身高 / 体重</dt><dd>180 cm / 72 kg</dd><dt>运动项目</dt><dd>篮球</dd><dt>惯用侧</dt><dd>右手（患侧：左腕）</dd></dl>
+      </div>
+      <div class="card"><div class="card-title">受伤信息</div>
+        <dl class="kv2"><dt>诊断</dt><dd>左腕桡骨远端骨折（闭合性）</dd><dt>受伤日期</dt><dd>2026-09-10</dd><dt>致伤场景</dt><dd>篮球对抗中摔倒手撑地</dd><dt>当前阶段</dt><dd>活动恢复期（第 3 周）</dd></dl>
+      </div>
+      <div class="card" style="padding:0;"><div class="cell" data-go="viewer" style="cursor:pointer;padding:14px 15px;"><span class="ci blue"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg></span><div class="ct"><b>既往影像与报告</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 18 · 康复档案时间线 ============ -->
+  <section class="screen" id="timeline">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">康复档案</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="filter-tabs" id="tlFilter">
+        <button class="ft on" data-f="all" type="button">全部</button>
+        <button class="ft" data-f="img" type="button">影像</button>
+        <button class="ft" data-f="cli" type="button">临床</button>
+        <button class="ft" data-f="reh" type="button">康复</button>
+      </div>
+      <div class="tl3">
+        <div class="tl3-item" data-type="img"><div class="rail"><div class="dot img"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-10 · 影像</div><b>初诊 X 线</b><p>桡骨远端骨皮质连续性中断</p></div></div>
+        <div class="tl3-item" data-type="cli"><div class="rail"><div class="dot cli"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 5.5 4.5 4.5 0 0 0 2 8.5c0 2.1 1.5 4 3 5.5l7 7z"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-10 · 临床</div><b>初诊评估与固定</b><p>VAS 6 · 肿胀明显 · 石膏保护性固定</p></div></div>
+        <div class="tl3-item" data-type="reh"><div class="rail"><div class="dot reh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><rect x="2" y="6" width="5" height="12" rx="2.5" transform="rotate(-20 4.5 12)"/><rect x="17" y="6" width="5" height="12" rx="2.5" transform="rotate(20 19.5 12)"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-17 · 康复</div><b>进入保护期</b><p>手指屈伸、肩关节活动度、冰敷消肿</p></div></div>
+        <div class="tl3-item" data-type="img"><div class="rail"><div class="dot img"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-24 · 影像</div><b>复查 X 线</b><p>骨折线模糊、可见骨痂，损伤区域缩小约 31%</p></div></div>
+        <div class="tl3-item" data-type="cli"><div class="rail"><div class="dot cli"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 5.5 4.5 4.5 0 0 0 2 8.5c0 2.1 1.5 4 3 5.5l7 7z"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-24 · 临床</div><b>复评与拆除固定</b><p>VAS 2 · 肿胀消退 · 拆除石膏</p></div></div>
+        <div class="tl3-item" data-type="reh"><div class="rail"><div class="dot reh"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><rect x="2" y="6" width="5" height="12" rx="2.5" transform="rotate(-20 4.5 12)"/><rect x="17" y="6" width="5" height="12" rx="2.5" transform="rotate(20 19.5 12)"/></svg></div><div class="line"></div></div><div class="tc"><div class="d">2026-09-26 · 康复</div><b>进入活动恢复期</b><p>腕关节活动度 30° → 65°，加入握力球训练</p></div></div>
+        <div class="tl3-item" data-type="cli"><div class="rail"><div class="dot cli"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div></div><div class="tc" style="border:1px dashed #fcd34d;background:#fffbeb;"><div class="d">2026-10-08 · 计划</div><b>待复查 X 线</b><p>评估愈合情况，决定是否进入力量回归期</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 19 · 我的医生 / 机构 ============ -->
+  <section class="screen" id="doctors">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">我的医生</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab has-fixed">
+      <div class="card">
+        <div class="card-title">就诊机构</div>
+        <b style="font-size:15px;">XX学院合作医院</b>
+        <p class="sub small" style="margin-top:4px;">运动创伤 / 康复科</p>
+        <p class="small muted" style="margin-top:6px;">工作时间：周一至周五 08:30–17:30</p>
+      </div>
+      <div class="card doc-card">
+        <div class="av-big">杨</div>
+        <div class="dc"><b>杨同学</b><p>执业医师 · 影像复核与报告签发</p>
+          <div style="margin-top:8px;display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm" type="button" data-msg="杨同学">在线留言</button>
+            <button class="btn btn-primary btn-sm" type="button" data-toast="正在呼叫合作医院（演示）">拨打电话</button>
+          </div>
+        </div>
+      </div>
+      <div class="card doc-card">
+        <div class="av-big" style="background:linear-gradient(135deg,#0ea5a0,#22d3ee);">张</div>
+        <div class="dc"><b>张同学</b><p>康复治疗师 · 康复方案制定与复评</p>
+          <div style="margin-top:8px;display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm" type="button" data-msg="张同学">在线留言</button>
+            <button class="btn btn-primary btn-sm" type="button" data-toast="正在呼叫康复治疗师（演示）">拨打电话</button>
+          </div>
+        </div>
+      </div>
+      <div class="fixed-actions">
+        <button class="btn btn-ghost" style="flex:1;" type="button" data-msg="合作医院">在线留言</button>
+        <button class="btn btn-primary" style="flex:1;" type="button" data-toast="正在呼叫合作医院（演示）">联系机构</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 屏 20 · 设置 ============ -->
+  <section class="screen" id="settings">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">设置</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="card" style="padding:4px 15px;">
+        <div class="cell"><div class="ct"><b>复诊 / 复查提醒</b></div><span class="switch on" data-switch-ui></span></div>
+        <div class="cell"><div class="ct"><b>康复方案更新通知</b></div><span class="switch on" data-switch-ui></span></div>
+        <div class="cell"><div class="ct"><b>异常疼痛预警</b></div><span class="switch on" data-switch-ui></span></div>
+        <div class="cell" style="border-bottom:none;"><div class="ct"><b>每日训练提醒</b></div><span class="switch" data-switch-ui></span></div>
+      </div>
+      <div class="card" style="padding:4px 15px;">
+        <div class="cell" data-doc="auth" style="cursor:pointer;"><div class="ct"><b>数据授权范围</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="cell" data-toast="撤回授权申请已记录，医护将停止访问您的康复数据（演示）" style="cursor:pointer;"><div class="ct"><b>撤回授权</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="cell" data-toast="演示环境暂不支持注销账号" style="cursor:pointer;"><div class="ct"><b style="color:var(--red);">注销账号</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="card" style="padding:4px 15px;">
+        <div class="cell"><div class="ct"><b>版本号</b></div><span class="small muted">v1.0.8 · 更新于 2026-11-02</span></div>
+        <div class="cell" data-doc="user" style="cursor:pointer;"><div class="ct"><b>用户协议</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="cell" data-doc="privacy" style="cursor:pointer;"><div class="ct"><b>隐私政策</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="cell" data-toast="本应用内容不构成医疗诊断，最终以执业医师意见为准" style="cursor:pointer;"><div class="ct"><b>免责声明</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="cell" data-go="about" style="cursor:pointer;border-bottom:none;"><div class="ct"><b>关于灵视医影</b></div><svg class="carr" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="card logout-row" data-logout style="cursor:pointer;justify-content:center;padding:15px;">退出登录</div>
+    </div>
+  </section>
+  <!-- ============ 屏 · AI 康复助手 ============ -->
+  <section class="screen" id="ai">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">AI 康复助手</div><button class="nav-right"></button></div>
+    <div class="screen-body no-tab ai-body" id="aiBody">
+      <div class="ai-note">基于 DeepSeek 大模型 · 回复仅作辅助参考，不构成医疗诊断</div>
+      <div class="ai-chat" id="aiChat">
+        <div class="ai-msg bot">
+          <div class="ai-av"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><circle cx="9.5" cy="12" r="1" fill="#fff" stroke="none"/><circle cx="14.5" cy="12" r="1" fill="#fff" stroke="none"/><path d="M9.5 15.5c.8.7 1.6 1 2.5 1s1.7-.3 2.5-1"/></svg></div>
+          <div class="ai-bubble">
+            您好，我是灵视医影 <b>AI 康复助手</b>，基于 DeepSeek 大模型，可协助您：<br>
+            · 解读当前病例与影像报告<br>
+            · 康复方案建议与动作说明<br>
+            · 恢复时间与运动回归咨询<br>
+            · 生成当前康复摘要<br>
+            可点击下方快捷问题，或直接输入提问。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-quick" id="aiQuick">
+      <button class="ai-q-btn" data-q="interpret" type="button">解读当前病例</button>
+      <button class="ai-q-btn" data-q="rehab" type="button">康复方案建议</button>
+      <button class="ai-q-btn" data-q="time" type="button">恢复时间咨询</button>
+      <button class="ai-q-btn" data-q="summary" type="button">生成摘要</button>
+    </div>
+    <div class="ai-input-bar">
+      <input id="aiInput" type="text" placeholder="输入问题，例如：多久能恢复训练？">
+      <button class="btn btn-primary btn-sm" id="aiSend" type="button">发送</button>
+    </div>
+  </section>
+
+  <!-- ============ 屏 · 关于灵视医影 ============ -->
+  <section class="screen" id="about">
+    <div class="navbar"><button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><div class="nav-title">关于灵视医影</div><div class="nav-right"></div></div>
+    <div class="screen-body no-tab">
+      <div class="card ab-hero">
+        <img src="assets/logo.png" alt="灵视医影" style="width:56px;height:56px;border-radius:14px;">
+        <b>灵视医影</b>
+        <p>AI 驱动的运动骨折智能诊疗与康复决策平台</p>
+        <div class="ab-tags"><span class="badge blue">影像辅助识别</span><span class="badge teal">专业复核</span><span class="badge blue">康复档案</span><span class="badge teal">运动回归</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">三个业务端口</div>
+        <div class="ab-port">
+          <div class="ap"><b>医疗机构端</b><p>影像预处理与质检、疑似骨折提示、结构化报告复核留痕</p></div>
+          <div class="ap"><b>体育机构端</b><p>经授权查看损伤摘要、康复进度与禁忌动作，跟踪回归训练</p></div>
+          <div class="ap" style="border-bottom:none;"><b>个人康复端</b><p>本 App：复诊提醒、训练打卡、疼痛自评与阶段注意事项</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">平台数据</div>
+        <div class="ab-stat">
+          <div class="as"><b>91.3%</b><span>AI 检测准确率</span></div>
+          <div class="as"><b>6.2<span style="font-size:13px;"> 周</span></b><span>平均康复周期</span></div>
+          <div class="as"><b>94%</b><span>回归成功率</span></div>
+        </div>
+        <p class="small muted" style="line-height:1.7;margin-top:10px;">以上为竞赛演示口径数据，用于展示平台能力，不代表实际经营业绩。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">三大核心技术</div>
+        <div class="rpt-sec"><h5>影像智能识别（YOLO26n）</h5><p>多尺度特征提取 + 注意力机制强化细小骨折线识别，以边界框 / 热力图 / 轮廓标记疑似区域并输出置信度，只作"疑似提示"，不使用"确诊 / 排除"等确定性表述。</p></div>
+        <div class="rpt-sec"><h5>多模态数据融合与动态对比（DeepSeek）</h5><p>融合影像、病历与随访数据，自动生成结构化报告；历次影像动态对比，量化愈合与功能恢复进展；专业人员可确认、修改、驳回，差异回流用于模型优化。</p></div>
+        <div class="rpt-sec" style="margin-bottom:0;"><h5>个性化康复决策与闭环管理</h5><p>按周阶段生成训练动作、禁忌动作与复评节点；康复档案记录疼痛、活动度、肌力与训练完成情况；通过回归阶梯逐步恢复运动，回归须由专业人员判定。</p></div>
+      </div>
+      <div class="card">
+        <div class="card-title">五步服务闭环</div>
+        <div class="ab-flow">
+          <div class="af"><i>1</i><div><b>影像上传</b><p>上传 · 质检</p></div></div>
+          <div class="af"><i>2</i><div><b>疑似骨折提示</b><p>框 / 热力图</p></div></div>
+          <div class="af"><i>3</i><div><b>专业人员复核</b><p>医生确认</p></div></div>
+          <div class="af"><i>4</i><div><b>康复档案</b><p>结构化记录</p></div></div>
+          <div class="af" style="border-bottom:none;"><i>5</i><div><b>运动回归评估</b><p>专业判定</p></div></div>
+        </div>
+        <p class="small muted" style="line-height:1.7;margin-top:10px;">AI 承担影像预处理、疑似区域提示与信息整理；最终诊断、报告签发、康复方案确认与运动回归判定，始终由执业医师、康复治疗师等专业人员完成。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">安全合规</div>
+        <ul class="kpts">
+          <li><b>医生主导：</b>AI 仅作辅助，最终诊断与回归决定由专业人员作出</li>
+          <li><b>结果标注：</b>所有 AI 输出标注"辅助参考"，保留医生复核环节</li>
+          <li><b>数据安全：</b>账号分级 · 最小权限 · 隐私保护 · 传输加密 · 操作留痕</li>
+          <li><b>授权共享：</b>向体育机构仅同步经确认的损伤摘要与禁忌动作</li>
+          <li><b>一期范围：</b>优先腕部、踝部等常见运动骨折部位，验证一个再扩展一个</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">项目与团队</div>
+        <dl class="kv2">
+          <dt>赛事</dt><dd>全国大学生数字媒体科技作品及创意竞赛 · XX学院</dd>
+          <dt>负责人</dt><dd>杨同学</dd>
+          <dt>算法研发</dt><dd>沈同学</dd>
+          <dt>系统产品</dt><dd>张同学</dd>
+          <dt>市场运营</dt><dd>刘同学</dd>
+          <dt>医学顾问</dt><dd>宋同学</dd>
+          <dt>项目性质</dt><dd>学生团队演示作品</dd>
+        </dl>
+      </div>
+      <div class="card" style="background:var(--blue-l);">
+        <p class="small" style="color:var(--blue-d);line-height:1.7;">本应用为全国大学生数字媒体科技作品及创意竞赛参赛作品，页面内容为演示数据；AI 结果仅供辅助参考，不构成医疗诊断，最终诊疗与康复安排以执业医师意见为准。</p>
+      </div>
+    </div>
+  </section>
+  <!--INSERT-SCREENS-2-->
+
+  <!-- ============ 屏 · 医护工作台（医生 / 治疗师登录后落地页） ============ -->
+  <section class="screen" id="staffHome">
+    <div class="navbar">
+      <button class="nav-btn" data-back type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="nav-title" id="shNavTitle">医护工作台</div>
+      <button class="nav-right" data-logout type="button" style="color:#dc2626;">退出</button>
+    </div>
+    <div class="screen-body no-tab">
+
+      <div class="sh-hero">
+        <div class="sh-hero-row">
+          <div class="sh-av" id="shAv">杨</div>
+          <div class="sh-hero-id">
+            <b id="shName">杨同学</b>
+            <span id="shSub">执业医师 · 运动创伤科</span>
+          </div>
+          <div class="sh-live" id="shLive"><i></i><span>同步中</span></div>
+        </div>
+        <div class="sh-hero-kpis">
+          <div class="sh-hk"><b id="shKpiPending">0</b><span id="shKpiLb1">待我复核</span></div>
+          <div class="sh-hk"><b id="shKpiDraft">0</b><span id="shKpiLb2">报告撰写中</span></div>
+          <div class="sh-hk"><b id="shKpiDone">0</b><span id="shKpiLb3">已签发</span></div>
+        </div>
+      </div>
+
+      <!-- 角色工作区：内容由 app.js 按身份（技师 / 医师 / 治疗师）渲染 -->
+      <div class="card sh-zone" id="shZone"></div>
+
+      <!-- 概览四宫格：指标随角色换语义 -->
+      <div class="sh-grid" id="shTiles"></div>
+
+      <div class="card">
+        <div class="card-title" id="shActTitle">快捷操作</div>
+        <div class="sh-acts" id="shActs"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">病例队列<span class="more" id="shQueueCnt">加载中…</span><button class="sh-add" type="button" id="shAddCase"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>新增病例</button></div>
+        <div class="sh-tabs" id="shFilter"></div>
+        <div id="shQueue"></div>
+      </div>
+
+      <div class="card" id="shFollowCard" style="display:none;">
+        <div class="card-title">随访提醒</div>
+        <div id="shFollowBox"></div>
+      </div>
+
+      <div class="card" style="background:var(--blue-l);">
+        <p class="small" style="color:var(--blue-d);line-height:1.7;">医护端仅展示经患者授权的损伤摘要与影像；原始病历与影像不出机构。影像复核结果由医师签发后才会同步至患者端。</p>
+      </div>
+      <button class="btn btn-ghost btn-block" type="button" data-switch style="margin-bottom:10px;">切换到其他账号</button>
+    </div>
+  </section>
+
+
+  <!-- ============ 底部 Tab ============ -->
+  <nav class="tabbar" id="tabbar">
+    <button class="tab-item active" data-tab="home" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9 21v-6h6v6"/></svg>
+      首页
+    </button>
+    <button class="tab-item" data-tab="report" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 16l5-4 4 3 3-2 6 5"/></svg>
+      影像报告
+    </button>
+    <button class="tab-item" data-tab="plan" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><rect x="2" y="6" width="5" height="12" rx="2.5" transform="rotate(-20 4.5 12)"/><rect x="17" y="6" width="5" height="12" rx="2.5" transform="rotate(20 19.5 12)"/></svg>
+      康复训练
+    </button>
+    <button class="tab-item" data-tab="me" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      我的
+    </button>
+  </nav>
+
+  <div id="toast"></div>
+  <div class="modal-mask" id="modalMask"><div class="modal" id="modalBox"></div></div>
+
+</div>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="app-bridge.js"></script>
+</body>
+</html>

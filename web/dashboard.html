@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>灵视医影 · 工作台</title>
+  <meta name="description" content="灵视医影运动骨折智能诊疗与康复决策平台 · 医疗机构端工作台">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/workbench.css">
+</head>
+<body class="app-body">
+
+  <div class="app-shell">
+
+    <!-- ============ 侧边栏 ============ -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Logo">
+        <div><b>灵视医影</b><small>运动骨折智能诊疗平台</small></div>
+      </div>
+      <div class="side-group">工作区</div>
+      <div class="side-link active" data-view="dashboard">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        工作台总览
+      </div>
+      <div class="side-link" data-view="analysis">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="6"/></svg>
+        影像分析
+      </div>
+      <div class="side-link" data-view="review">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+        待审核队列
+      </div>
+      <div class="side-link" data-view="ai-assist">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/><path d="M9.5 10.5h.01M14.5 10.5h.01M9 14c1 .8 2 1.2 3 1.2s2-.4 3-1.2"/></svg>
+        AI 影像助手
+      </div>
+      <div class="side-group">康复与档案</div>
+      <div class="side-link" data-view="archive">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M10 13h4"/></svg>
+        病例与康复档案
+      </div>
+      <div class="side-link" data-view="rehab">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        康复与随访
+      </div>
+      <div class="side-link" data-view="return">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19l4-6 3 3 5-8"/><path d="M17 8h3v3"/></svg>
+        运动回归管理
+      </div>
+      <div class="side-group">机构</div>
+      <div class="side-link" data-view="analytics">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+        数据分析看板
+      </div>
+      <div class="side-link" data-view="stats">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        统计与设置
+      </div>
+      <div class="side-quiet">
+        <a class="side-link side-download" href="download.html">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          移动端 App
+          <span class="dl-tag">下载</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ============ 主区 ============ -->
+    <div class="app-main">
+      <header class="app-topbar">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button class="tool-btn side-toggle" id="side-toggle">☰ 菜单</button>
+          <span class="crumb" id="crumb">工作台 / <b>总览</b></span>
+        </div>
+        <div class="top-right">
+          <span class="top-org">XX学院 · 运动创伤科研试点</span>
+          <div class="user-menu" id="user-menu">
+            <button type="button" class="user-menu-btn" id="user-menu-btn" aria-haspopup="true" aria-expanded="false">
+              <span class="user-avatar" id="top-avatar">·</span>
+              <span class="user-meta">
+                <span class="user-name" id="top-user">—</span>
+                <span class="role-chip" id="role-chip">—</span>
+              </span>
+              <svg class="user-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="user-dropdown" id="user-dropdown" hidden>
+              <button type="button" class="ud-item" id="top-switch-account">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11l-3-3-3 3"/></svg>
+                <span>切换账号</span>
+              </button>
+              <button type="button" class="ud-item danger" id="top-logout">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+                <span>退出登录</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-content">
+
+        <!-- ======== 视图1：总览 ======== -->
+        <section class="view active" id="view-dashboard">
+          <div class="compliance-bar">⚠ 影像与 AI 输出仅作辅助参考，最终诊断与运动回归决定须由执业医师等专业人员作出。</div>
+
+          <div class="kpi-grid">
+            <div class="kpi accent" id="kpi-pending" data-goto="review" title="前往待审核队列"><div class="k-label">待我审核</div><div class="k-num">—</div><div class="k-sub warn">技师提交后进入队列</div></div>
+            <div class="kpi teal" id="kpi-today" data-goto="analysis" title="前往影像分析"><div class="k-label">今日已分析</div><div class="k-num">—</div><div class="k-sub up">—</div></div>
+            <div class="kpi" id="kpi-rehab" data-goto="archive" title="前往病例与康复档案"><div class="k-label">在管康复病例</div><div class="k-num">—</div><div class="k-sub">—</div></div>
+            <div class="kpi" id="kpi-followup" data-goto="archive" title="前往病例与康复档案"><div class="k-label">待复诊提醒</div><div class="k-num">—</div><div class="k-sub warn">—</div></div>
+          </div>
+
+          <div class="grid-2" style="margin-top:18px;">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-title">待办事项</div>
+                <button class="btn-line" data-goto="review">全部待审核 →</button>
+              </div>
+              <table class="data-table">
+                <colgroup><col style="width:34%"><col style="width:22%"><col style="width:24%"><col style="width:20%"></colgroup>
+                <thead><tr><th>病例</th><th>部位</th><th>模型置信</th><th>状态</th></tr></thead>
+                <tbody id="todo-tbody">
+                  <tr><td colspan="4" style="text-align:center;color:var(--text-secondary);padding:16px;">正在加载…</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="panel">
+              <div class="panel-title">系统流程</div>
+              <div class="flow-strip" style="flex-direction:column; gap:10px;">
+                <div class="flow-step" style="text-align:left; display:flex; align-items:center; gap:12px;"><span class="flow-num">1</span><div><strong>技师上传 · 模型定位</strong><em>影像质检 · 可疑区域框选</em></div></div>
+                <div class="flow-step" style="text-align:left; display:flex; align-items:center; gap:12px;"><span class="flow-num">2</span><div><strong>技师撰写报告并提交</strong><em>报告撰写中 → 待审核</em></div></div>
+                <div class="flow-step" style="text-align:left; display:flex; align-items:center; gap:12px;"><span class="flow-num">3</span><div><strong>医师 AI 辅助审核</strong><em>病情情况 · 治疗建议 · 归档</em></div></div>
+                <div class="flow-step" style="text-align:left; display:flex; align-items:center; gap:12px;"><span class="flow-num">4</span><div><strong>康复深化与周期随访</strong><em>康复建议 · 疗效对比</em></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======== 视图2：影像分析（上传 + 阅片 + 复核） ======== -->
+        <section class="view" id="view-analysis">
+          <div class="panel">
+            <div class="panel-title">新建病例 · 影像上传与分析</div>
+            <div class="grid-3">
+              <div><label class="field-label" style="margin-top:0">病例号</label><input class="text-input" id="form-case-no" placeholder="留空自动生成"></div>
+              <div><label class="field-label" style="margin-top:0">影像类型</label>
+                <select class="text-input" id="form-modality"><option>X 光</option><option>CT</option></select></div>
+              <div><label class="field-label" style="margin-top:0">受伤部位 / 左右侧</label>
+                <select class="text-input" id="form-part"><option>腕部 · 左侧</option><option>腕部 · 右侧</option><option>踝部 · 左侧</option><option>踝部 · 右侧</option></select></div>
+              <div><label class="field-label" style="margin-top:0">受伤日期</label><input class="text-input" type="date" id="form-date" value="2026-09-17"></div>
+              <div><label class="field-label" style="margin-top:0">运动项目</label>
+                <select class="text-input" id="form-sport"><option>篮球</option><option>跑步</option><option>足球</option><option>羽毛球</option><option>骑行</option></select></div>
+              <div><label class="field-label" style="margin-top:0">患者姓名</label><input class="text-input" id="form-patient-name" placeholder="如 宋同学"></div>
+              <div><label class="field-label" style="margin-top:0">患者手机号</label><input class="text-input" id="form-patient-phone" placeholder="患者用此号登录查看档案"></div>
+              <div><label class="field-label" style="margin-top:0">图像质量检查</label>
+                <div style="padding:9px 0; font-size:13.5px;"><span class="badge teal">方向正常</span> <span class="badge teal">分辨率达标</span> <span class="badge teal">完整</span></div></div>
+            </div>
+
+            <div style="margin-top:16px; padding:22px; border:2px dashed var(--border); border-radius:12px; text-align:center; background:#fafbfc;" id="dropzone">
+              <p style="color:var(--text-secondary); font-size:14px;">拖拽 X 光片到此处，或选择文件（JPG / PNG，单张 ≤ 16MB）</p>
+              <input type="file" id="file-input" accept=".jpg,.jpeg,.png,image/jpeg,image/png" style="display:none;">
+              <div style="margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                <button class="btn btn-line" id="pick-file">选择影像文件</button>
+                <button class="btn btn-primary btn-sm" id="run-analysis">开始模型分析</button>
+              </div>
+              <div id="file-name" style="margin-top:10px; font-size:13px; color:var(--text-secondary);">未选择文件</div>
+              <div id="model-chip" class="model-chip">正在检查检测模型…</div>
+              <div style="margin-top:12px; font-size:12.5px; color:var(--text-secondary);">
+                没有影像？用示例片试试：
+                <button type="button" class="sample-btn" data-sample="1">示例 1</button>
+                <button type="button" class="sample-btn" data-sample="2">示例 2</button>
+                <button type="button" class="sample-btn" data-sample="3">示例 3</button>
+              </div>
+              <div id="prep-steps" style="margin-top:14px; font-size:12.5px; color:var(--text-secondary); display:none;"></div>
+            </div>
+          </div>
+
+          <div class="panel" id="workbench-panel" style="display:none;">
+            <div class="panel-head">
+              <div class="panel-title">阅片工作台 · <span id="wb-case-no">—</span></div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <span class="badge teal" id="wb-finding-badge">—</span>
+                <span class="badge amber">模型辅助结果 · 供技师撰写报告</span>
+              </div>
+            </div>
+
+            <div class="viewer-wrap">
+              <div>
+                <div class="viewer no-image-shown" id="wb-viewer-a">
+                  <span class="view-tag" id="original-view-tag">原始影像</span>
+                  <img id="wb-original-img" alt="原始影像">
+                  <div class="box-layer" id="wb-box-layer-a"></div>
+                  <div class="no-image" id="wb-no-image-a">暂无影像</div>
+                </div>
+                <div class="viewer-tools">
+                  <button class="tool-btn active">缩放</button>
+                  <button class="tool-btn">平移</button>
+                  <button class="tool-btn">反色</button>
+                  <button class="tool-btn" data-toast="已复位">复位</button>
+                </div>
+              </div>
+              <div>
+                <div class="viewer no-image-shown" id="wb-viewer-b">
+                  <span class="view-tag">模型检测框</span>
+                  <img id="wb-ai-img" alt="模型检测结果">
+                  <div class="box-layer" id="wb-box-layer-b"></div>
+                  <div class="no-image" id="wb-no-image-b">暂无影像</div>
+                </div>
+                <div class="viewer-tools">
+                  <button class="tool-btn active">标注层</button>
+                  <button class="tool-btn" data-toast="热力图需模型提供分割输出，当前版本未启用">热力图</button>
+                  <button class="tool-btn" data-toast="轮廓需模型提供分割输出，当前版本未启用">轮廓</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:18px;">
+              <div>
+                <div class="panel-title" style="font-size:15px;">模型检测结果（辅助参考）</div>
+                <div id="wb-findings"></div>
+              </div>
+              <div>
+                <div class="panel-title" style="font-size:15px;">本次分析摘要</div>
+                <div class="empty-note" id="wb-summary" style="text-align:left;"></div>
+                <div class="review-actions" style="margin-top:12px;">
+                  <button class="review-btn ok" id="wb-open-case">进入病例详情 →</button>
+                  <button class="btn-line" id="wb-reanalyze">重新分析</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 影像技师报告：模型结果由技师核对后写成报告，提交后才进入医师待审核队列 -->
+            <div class="wl-block" id="tech-note-block" style="margin-top:18px;">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">影像技师检查报告</div>
+                <span class="badge" id="wb-tech-status">报告撰写中</span>
+              </div>
+              <p class="wl-hint">模型只给出可疑位置与置信度，报告由影像技师核对影像后撰写；提交后进入执业医师待审核队列。</p>
+              <textarea class="text-input" id="wb-tech-report" rows="9" style="resize:vertical; line-height:1.7;"></textarea>
+              <div class="md-preview-wrap" id="wb-report-preview-wrap" style="display:none;">
+                <div class="md-preview-head">
+                  <span class="md-preview-title">报告渲染预览</span>
+                  <span class="md-preview-sub">提交后医师端看到的就是这个样子</span>
+                </div>
+                <div class="wl-text md-preview" id="wb-report-preview"></div>
+              </div>
+              <div class="review-actions" style="margin-top:12px;">
+                <button class="btn-line" id="wb-tech-save">保存草稿</button>
+                <button class="review-btn ok" id="wb-tech-submit">提交医师审核</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======== 视图3：待复核队列 ======== -->
+        <section class="view" id="view-review">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">待审核队列（影像技师已提交，等待医师审核）</div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span class="badge amber" id="review-count">0 例</span>
+                <button class="btn-line" id="btn-reload-review" type="button">↻ 刷新</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <colgroup><col style="width:20%"><col style="width:12%"><col style="width:12%"><col style="width:16%"><col style="width:12%"><col style="width:14%"><col style="width:14%"></colgroup>
+              <thead><tr><th>病例号</th><th>患者</th><th>部位</th><th>技师报告</th><th>模型结论</th><th>提交时间</th><th>状态</th></tr></thead>
+              <tbody id="review-tbody">
+                <tr><td colspan="7" style="text-align:center;color:var(--text-secondary);padding:18px;">正在加载…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ======== 视图：病例详情（从待复核队列点进去） ======== -->
+        <section class="view" id="view-case-detail">
+          <div class="panel">
+            <div class="panel-head">
+              <button class="btn-line" id="btn-back-review" style="margin-right:12px;">← 返回</button>
+              <div class="panel-title" id="case-detail-title">病例详情</div>
+              <span class="badge amber" id="detail-status-badge">—</span>
+            </div>
+            <div class="viewer-wrap" style="margin-top:14px;">
+              <div>
+                <div class="viewer no-image-shown" id="detail-viewer-a">
+                  <span class="view-tag">原始影像</span>
+                  <img alt="原始影像" id="detail-original-img">
+                  <div class="no-image" id="no-image-original">暂无上传影像</div>
+                </div>
+                <div class="viewer-tools">
+                  <button class="tool-btn active">缩放</button>
+                  <button class="tool-btn">平移</button>
+                  <button class="tool-btn">反色</button>
+                  <button class="tool-btn" data-toast="已复位">复位</button>
+                </div>
+              </div>
+              <div>
+                <div class="viewer no-image-shown" id="ai-viewer">
+                  <span class="view-tag">模型检测框 <span id="annotate-hint" style="display:none;color:#dc2626;">· 拖拽可添加人工标注</span></span>
+                  <img alt="模型检测结果" id="ai-img">
+                  <div class="box-layer" id="detail-box-layer"></div>
+                  <div class="no-image" id="no-image-ai">暂无上传影像</div>
+                  <div id="annotate-layer" style="position:absolute;inset:0;display:none;cursor:crosshair;"></div>
+                </div>
+                <div class="viewer-tools">
+                  <button class="tool-btn active">标注层</button>
+                  <button class="tool-btn" data-toast="热力图需模型提供分割输出，当前版本未启用">热力图</button>
+                  <button class="tool-btn" data-toast="轮廓需模型提供分割输出，当前版本未启用">轮廓</button>
+                </div>
+              </div>
+            </div>
+            <div class="grid-2" style="margin-top:18px;">
+              <div>
+                <div class="panel-title" style="font-size:15px;">模型检测结果（辅助参考）</div>
+                <div id="detail-findings">
+                  <div class="empty-note" style="text-align:left;">正在加载检测结果…</div>
+                </div>
+              </div>
+              <div>
+                <div class="panel-title" style="font-size:15px;">病例信息</div>
+                <div class="empty-note" id="detail-case-info" style="text-align:left;">正在加载病例…</div>
+              </div>
+            </div>
+
+            <!-- 管理员：档案信息维护 / 删除（仅机构管理员可见） -->
+            <div class="wl-block" id="admin-case-block" style="margin-top:18px; display:none;">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">档案管理（机构管理员）</div>
+                <span class="badge gray" id="admin-case-hint">可修改患者信息与部位，删除会连同影像、随访、检测记录一起移除</span>
+              </div>
+              <div class="grid-3" style="margin-top:10px;">
+                <div><label class="field-label" style="margin-top:0">患者姓名</label><input class="text-input" id="ac-name"></div>
+                <div><label class="field-label" style="margin-top:0">患者手机号</label><input class="text-input" id="ac-phone" placeholder="留空则解除绑定"></div>
+                <div><label class="field-label" style="margin-top:0">受伤部位</label><input class="text-input" id="ac-part"></div>
+                <div><label class="field-label" style="margin-top:0">运动项目</label><input class="text-input" id="ac-sport"></div>
+                <div><label class="field-label" style="margin-top:0">受伤日期</label><input class="text-input" type="date" id="ac-date"></div>
+              </div>
+              <div class="review-actions" style="margin-top:12px; align-items:center;">
+                <button class="review-btn ok" id="btn-ac-save" type="button">保存修改</button>
+                <button class="review-btn reject" id="btn-ac-delete" type="button" data-confirm="0">删除档案</button>
+                <span class="wl-hint" id="ac-hint"></span>
+              </div>
+            </div>
+
+            <!-- ① 影像技师：模型分析后写检查报告，提交进入审核队列 -->
+            <div class="wl-block" id="tech-note-view" style="margin-top:18px;">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">① 影像技师检查报告</div>
+                <span class="badge gray" id="flow-tech-meta">—</span>
+              </div>
+              <div class="wl-text" id="tech-report-view">—</div>
+              <div id="tech-report-edit" style="display:none;">
+                <textarea class="text-input" id="detail-tech-report" rows="8" style="resize:vertical; line-height:1.7;"></textarea>
+                <div class="review-actions" style="margin-top:12px;">
+                  <button class="btn-line" id="btn-detail-tech-save">保存草稿</button>
+                  <button class="review-btn ok" id="btn-detail-tech-submit">提交医师审核</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ② 执业医师：AI 辅助生成病情与建议，核对修改后审核归档 -->
+            <div class="wl-block" id="doctor-block" style="margin-top:14px;">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">② 执业医师审核</div>
+                <span class="badge gray" id="flow-doctor-meta">—</span>
+              </div>
+              <div id="doctor-readonly">
+                <div class="wl-label">病情情况</div>
+                <div class="wl-text" id="doctor-condition-view">—</div>
+                <div class="wl-label">治疗建议</div>
+                <div class="wl-text" id="doctor-advice-view">—</div>
+              </div>
+              <div id="doctor-edit" style="display:none;">
+                <div class="review-actions" style="margin-bottom:10px; align-items:center;">
+                  <button class="btn-line" id="btn-ai-review">✦ AI 分析（生成初稿）</button>
+                  <span class="wl-hint" id="ai-review-hint"></span>
+                </div>
+                <div class="wl-label">病情情况</div>
+                <textarea class="text-input" id="doctor-condition" rows="3" style="resize:vertical;"></textarea>
+                <div class="wl-label">治疗建议</div>
+                <textarea class="text-input" id="doctor-advice" rows="5" style="resize:vertical;"></textarea>
+                <div class="review-actions" style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="review-btn ok" data-action="confirm">✓ 审核通过并归档</button>
+                  <button class="review-btn edit" data-action="annotate">修改标注</button>
+                  <button class="review-btn reject" data-action="reject" id="btn-review-reject">驳回给技师</button>
+                  <button class="btn-line" id="btn-finish-annotate" style="display:none;background:#0d9488;color:#fff;border:none;">✓ 完成标注</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ③ 康复治疗师：深化治疗建议 + 周期随访 -->
+            <div class="wl-block" id="rehab-block" style="margin-top:14px;">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">③ 康复深化与随访</div>
+                <span class="badge gray" id="flow-rehab-meta">—</span>
+              </div>
+              <div class="wl-label">康复治疗方案</div>
+              <div class="wl-text" id="rehab-view">—</div>
+              <div id="rehab-edit" style="display:none;">
+                <div class="review-actions" style="margin-bottom:10px; align-items:center;">
+                  <button class="btn-line" id="btn-ai-rehab">✦ AI 生成康复建议</button>
+                  <span class="wl-hint" id="ai-rehab-hint"></span>
+                </div>
+                <textarea class="text-input" id="rehab-text" rows="6" style="resize:vertical;"></textarea>
+                <div class="review-actions" style="margin-top:12px;">
+                  <button class="review-btn ok" id="btn-rehab-save">保存到康复档案</button>
+                </div>
+              </div>
+
+              <div class="wl-label" style="margin-top:16px;">随访记录（疼痛 / 活动度 / 肿胀 / 训练执行）</div>
+              <table class="data-table" id="fu-table">
+                <colgroup><col style="width:14%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:24%"><col style="width:20%"><col style="width:12%"></colgroup>
+                <thead><tr><th>日期</th><th>疼痛</th><th>活动度</th><th>肿胀</th><th>训练执行</th><th>备注</th><th>记录人</th></tr></thead>
+                <tbody id="fu-tbody"><tr><td colspan="7" style="text-align:center;color:var(--text-secondary);padding:14px;">暂无随访记录</td></tr></tbody>
+              </table>
+              <div id="fu-form" style="display:none; margin-top:12px;">
+                <div class="grid-3">
+                  <div><label class="field-label" style="margin-top:0">随访日期</label><input class="text-input" type="date" id="fu-date"></div>
+                  <div><label class="field-label" style="margin-top:0">疼痛评分（0-10）</label><input class="text-input" type="number" min="0" max="10" id="fu-pain" value="3"></div>
+                  <div><label class="field-label" style="margin-top:0">关节活动度（%）</label><input class="text-input" type="number" min="0" max="100" id="fu-rom" value="55"></div>
+                  <div><label class="field-label" style="margin-top:0">肿胀</label>
+                    <select class="text-input" id="fu-swell"><option>无</option><option>轻</option><option>中</option><option>重</option></select></div>
+                  <div><label class="field-label" style="margin-top:0">训练执行情况</label><input class="text-input" id="fu-training" placeholder="如 完成手指屈伸，腕部未负重"></div>
+                  <div><label class="field-label" style="margin-top:0">备注</label><input class="text-input" id="fu-note" placeholder="主诉 / 复诊提示"></div>
+                </div>
+                <div class="review-actions" style="margin-top:12px;">
+                  <button class="review-btn ok" id="btn-fu-add">+ 录入本次随访</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 审核报告：医师确认后生成，患者只读 -->
+            <div class="panel" style="margin-top:18px;" id="case-report-panel">
+              <div class="panel-head">
+                <div class="panel-title">审核报告</div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn-line" id="btn-reopen-review" style="display:none;">撤回重审</button>
+                  <button class="btn-line" id="btn-toggle-report">展开报告</button>
+                </div>
+              </div>
+              <div id="case-report-content" style="display:none;">
+                <div class="report-doc" id="rpt-medical">
+                  <p style="color:var(--text-secondary);">暂无报告</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 视图4（原"独立结构化报告页"）已移除：该页所有角色都进不来，
+             且与病例详情里的报告重复使用了同一个 id，导致详情报告被静态内容覆盖。 -->
+
+        <!-- ======== 视图5：病例与康复档案 ======== -->
+        <section class="view" id="view-archive">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title" id="archive-title">病例与康复档案</div>
+              <div style="display:flex; gap:8px;">
+                <input class="text-input" id="archive-search" style="width:200px" placeholder="搜索病例号 / 姓名 / 部位">
+                <button class="btn-line" id="archive-search-btn" type="button">搜索</button>
+                <button class="btn-line" id="btn-reload-archive" type="button">↻ 刷新</button>
+                <button class="btn-line" id="btn-bind-toggle" type="button" hidden>＋ 绑定我的病例</button>
+                <button class="btn-line" id="btn-admin-new-case" type="button" hidden>＋ 新增档案</button>
+              </div>
+            </div>
+
+            <!-- 管理员建档：上传影像后走同一套真实推理与医师审核流程 -->
+            <div id="panel-case-create" class="panel" style="display:none; margin-bottom:14px; box-shadow:none; border:1px dashed var(--border-color, #d7dee8);">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;">新增档案（机构管理员代建档）</div>
+                <span class="wl-hint">保存后进入「报告撰写中」，由影像技师补写检查报告、医师审核</span>
+              </div>
+              <div class="grid-3" style="margin-top:12px;">
+                <div><label class="field-label" style="margin-top:0">患者姓名</label><input class="text-input" id="nc-name" placeholder="如 宋同学"></div>
+                <div><label class="field-label" style="margin-top:0">患者手机号</label><input class="text-input" id="nc-phone" placeholder="选填，填写后自动绑定患者账号"></div>
+                <div><label class="field-label" style="margin-top:0">受伤部位</label><input class="text-input" id="nc-part" placeholder="如 腕部（桡骨远端）"></div>
+                <div><label class="field-label" style="margin-top:0">运动项目</label><input class="text-input" id="nc-sport" placeholder="选填，如 篮球"></div>
+                <div><label class="field-label" style="margin-top:0">受伤日期</label><input class="text-input" type="date" id="nc-date"></div>
+                <div><label class="field-label" style="margin-top:0">影像文件</label><input class="text-input" type="file" id="nc-file" accept=".jpg,.jpeg,.png"></div>
+              </div>
+              <div class="review-actions" style="margin-top:12px; align-items:center;">
+                <button class="review-btn ok" id="btn-nc-save" type="button">保存并分析</button>
+                <button class="btn-line" id="btn-nc-cancel" type="button">取消</button>
+                <span class="wl-hint" id="nc-hint"></span>
+              </div>
+            </div>
+
+            <!-- 患者自助绑定：病例已建档但手机号未登记时使用 -->
+            <div id="panel-patient-bind" class="compliance-bar" style="display:none;">
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <span>病例已建档但未绑定到您的账号？输入病例号自助绑定（姓名需与档案一致）：</span>
+                <input class="text-input" id="bind-case-no" style="width:210px" placeholder="如 LSY-20261103-034">
+                <button class="btn-line" id="bind-case-btn" type="button">绑定</button>
+                <span class="wl-hint" id="bind-hint"></span>
+              </div>
+            </div>
+
+            <table class="data-table">
+              <colgroup><col style="width:18%"><col style="width:12%"><col style="width:14%"><col style="width:12%"><col style="width:14%"><col style="width:14%"><col style="width:16%"></colgroup>
+              <thead><tr><th>病例号</th><th>患者</th><th>部位</th><th>运动项目</th><th>受伤日期</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody id="archive-tbody">
+                <tr><td colspan="7" style="text-align:center;color:var(--text-secondary);padding:18px;">正在加载…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          </section>
+
+        <!-- ======== 视图6：运动回归 ======== -->
+        <section class="view" id="view-return">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">运动回归阶梯 <span id="return-case-label" style="font-weight:600;color:var(--text-secondary);">（未选择病例）</span></div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <select class="text-input" id="return-case-select" style="width:320px;"></select>
+                <button class="btn-line" id="return-load-btn" type="button">载入</button>
+                <span class="badge blue" id="return-stage-badge">—</span>
+              </div>
+            </div>
+            <div class="return-steps" id="return-ladder"></div>
+            <p class="wl-hint" id="return-ladder-note">阶梯状态由该病例随访记录计算出的恢复度自动判定，仅作记录与提醒，不代替医师 / 治疗师的回归评估。</p>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-title">晋级准入条件（专业人员判定）</div>
+              <ul class="cond-list">
+                <li>✓ 复查影像提示骨折临床愈合</li>
+                <li>✓ 患侧力量达健侧 ≥ 80%</li>
+                <li>✓ 单腿站立 / 平衡测试达标</li>
+                <li>✓ 无负重疼痛、无反复肿胀</li>
+                <li>✓ 教练确认训练计划可承接</li>
+              </ul>
+              <p style="font-size:12.5px;color:var(--text-secondary);margin-top:8px;">是否进入跑跳阶段须由执业医师 / 康复治疗师综合判定，系统仅记录与提醒，不自动批准回归。</p>
+            </div>
+            <div class="panel">
+              <div class="panel-title">恢复度量化评分曲线（按随访记录）</div>
+              <div id="chart-recovery" class="chart-box"></div>
+              <p class="wl-hint" id="return-score-note">暂无随访记录，无法计算恢复度。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======== 视图7：统计与设置 ======== -->
+        <section class="view" id="view-stats">
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-title">本周影像分析量</div>
+              <div id="chart-weekly" class="chart-box"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">受伤部位分布</div>
+              <div id="chart-body" class="chart-box"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">账号与权限（真实账号）</div>
+              <button class="btn-line" id="btn-new-account" type="button">＋ 新增账号</button>
+            </div>
+            <table class="data-table">
+              <colgroup><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:15%"><col style="width:9%"><col style="width:9%"><col style="width:12%"><col style="width:18%"></colgroup>
+              <thead><tr><th>姓名</th><th>角色</th><th>手机号</th><th>所属机构</th><th>绑定病例</th><th>状态</th><th>开通时间</th><th>操作</th></tr></thead>
+              <tbody id="users-tbody">
+                <tr><td colspan="8" style="text-align:center;color:var(--text-secondary);padding:18px;">正在加载…</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12.5px;color:var(--text-secondary);margin-top:12px;">权限范围：医师审核归档 · 技师上传与撰写报告 · 康复师深化与随访 · 患者只读本人档案 · 管理员全权限。新增账号由管理员直接开通；删除账号只解绑病例、不删除档案。</p>
+
+            <!-- 管理员：新增 / 编辑账号（仅机构管理员可见） -->
+            <div id="panel-user-form" class="panel" style="display:none; margin-top:14px; box-shadow:none; border:1px dashed var(--border-color, #d7dee8);">
+              <div class="panel-head">
+                <div class="panel-title" style="font-size:15px;" id="uf-title">新增账号</div>
+                <span class="wl-hint" id="uf-sub">手机号即登录账号，开通后可立即登录</span>
+              </div>
+              <div class="grid-3" style="margin-top:12px;">
+                <div><label class="field-label" style="margin-top:0">姓名</label><input class="text-input" id="uf-name"></div>
+                <div><label class="field-label" style="margin-top:0">手机号（登录账号）</label><input class="text-input" id="uf-phone" maxlength="11"></div>
+                <div><label class="field-label" style="margin-top:0">角色</label>
+                  <select class="text-input" id="uf-role">
+                    <option value="影像技师">影像技师</option>
+                    <option value="执业医师">执业医师</option>
+                    <option value="康复治疗师">康复治疗师</option>
+                    <option value="患者">患者</option>
+                    <option value="机构管理员">机构管理员</option>
+                  </select>
+                </div>
+                <div><label class="field-label" style="margin-top:0">所属机构</label><input class="text-input" id="uf-org" placeholder="选填"></div>
+                <div><label class="field-label" style="margin-top:0">状态</label>
+                  <select class="text-input" id="uf-status">
+                    <option value="active">启用</option>
+                    <option value="disabled">停用</option>
+                  </select>
+                </div>
+                <div><label class="field-label" style="margin-top:0">密码</label><input class="text-input" id="uf-password" placeholder="新增必填 ≥6 位；编辑留空表示不改"></div>
+              </div>
+              <div class="review-actions" style="margin-top:12px; align-items:center;">
+                <button class="review-btn ok" id="btn-uf-save" type="button">保存</button>
+                <button class="btn-line" id="btn-uf-cancel" type="button">取消</button>
+                <span class="wl-hint" id="uf-hint"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== 患者身份绑定（仅机构管理员可见） ===== -->
+          <div class="panel" id="panel-bind" hidden>
+            <div class="panel-head">
+              <div class="panel-title">患者身份绑定（尚未绑定账号的病例）</div>
+              <button class="btn-line" id="btn-reload-unbound" type="button">↻ 刷新</button>
+            </div>
+            <table class="data-table">
+              <colgroup><col style="width:20%"><col style="width:14%"><col style="width:18%"><col style="width:16%"><col style="width:12%"><col style="width:20%"></colgroup>
+              <thead><tr><th>病例号</th><th>患者姓名</th><th>部位</th><th>建档时间</th><th>状态</th><th>绑定到患者账号</th></tr></thead>
+              <tbody id="unbound-tbody">
+                <tr><td colspan="6" style="text-align:center;color:var(--text-secondary);padding:18px;">正在加载…</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12.5px;color:var(--text-secondary);margin-top:12px;">绑定后该病例会出现在对应患者的「我的病例与康复档案」中（只读）；技师建档时填写手机号也可自动绑定。</p>
+          </div>
+
+          <!-- ===== 注册申请审核（仅机构管理员可见） ===== -->
+          <div class="panel" id="panel-approval" hidden>
+            <div class="panel-head">
+              <div class="panel-title">注册申请审核</div>
+              <button class="btn-line" id="btn-reload-apps">↻ 刷新</button>
+            </div>
+            <table class="data-table" id="approval-table">
+              <colgroup><col style="width:14%"><col style="width:16%"><col style="width:24%"><col style="width:14%"><col style="width:18%"><col style="width:14%"></colgroup>
+              <thead><tr><th>姓名</th><th>手机号</th><th>所属机构</th><th>申请角色</th><th>提交时间</th><th>操作</th></tr></thead>
+              <tbody id="approval-tbody">
+                <tr><td colspan="6" style="text-align:center;color:var(--text-secondary);padding:18px;">加载中…</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12.5px;color:var(--text-secondary);margin-top:12px;">通过后系统自动生成工号账号，初始密码为申请人提交时设置的密码；可在登录页用该账号登录。</p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">当前账号</div>
+            <div class="account-row">
+              <div class="account-meta">
+                <div class="account-avatar" id="acc-avatar">·</div>
+                <div>
+                  <div class="account-name" id="acc-name">—</div>
+                  <div class="account-desc"><span id="acc-role">—</span></div>
+                </div>
+              </div>
+              <div class="account-actions">
+                <button class="btn-line" id="btn-switch-account">切换账号</button>
+                <button class="btn-line btn-logout" id="btn-logout">退出登录</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======== 视图8：康复与随访 ======== -->
+        <section class="view" id="view-rehab">
+          <div class="compliance-bar">⚠ 康复建议由 AI 依据医师审核结论生成初稿，须由康复治疗师核对修改后写入档案；随访数据用于疗效对比，不替代复诊。</div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">选择已审核病例</div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <select class="text-input" id="rehab-case-select" style="width:340px;"></select>
+                <button class="btn-line" id="rehab-load-btn" type="button">载入病例</button>
+              </div>
+            </div>
+            <div class="grid-2">
+              <dl class="kv kv-rehab" id="rehab-patient-kv">
+                <dt>病例号</dt><dd>—</dd>
+                <dt>患者</dt><dd>—</dd>
+                <dt>部位</dt><dd>—</dd>
+                <dt>运动项目</dt><dd>—</dd>
+                <dt>受伤日期</dt><dd>—</dd>
+                <dt>当前阶段</dt><dd>—</dd>
+              </dl>
+              <dl class="kv kv-rehab" id="rehab-doctor-kv">
+                <dt>医师病情情况</dt><dd>—</dd>
+                <dt>医师治疗建议</dt><dd>—</dd>
+                <dt>模型结论</dt><dd>—</dd>
+                <dt>审核医师</dt><dd>—</dd>
+                <dt>审核时间</dt><dd>—</dd>
+                <dt>最近随访</dt><dd>—</dd>
+              </dl>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">康复治疗方案（治疗师深化）</div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn-line" id="rehab-ai-btn">✦ AI 生成建议</button>
+                <button class="review-btn ok" id="rehab-save-btn">✓ 保存到档案</button>
+              </div>
+            </div>
+            <div class="wl-hint" id="rehab-ai-hint" style="margin-bottom:8px;"></div>
+            <textarea class="text-input" id="rehab-editor" rows="10" style="resize:vertical; line-height:1.75;" placeholder="先选择病例，再生成或填写康复建议"></textarea>
+            <p class="plan-note">提示：AI 建议仅供参考，写入档案前请结合随访数据与临床判断修改。</p>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">随访记录与康复对比</div>
+              <button class="btn-line" id="rehab-toggle-fu">+ 录入随访</button>
+            </div>
+            <table class="data-table">
+              <colgroup><col style="width:14%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col style="width:24%"><col style="width:20%"><col style="width:12%"></colgroup>
+              <thead><tr><th>日期</th><th>疼痛</th><th>活动度</th><th>肿胀</th><th>训练执行</th><th>备注</th><th>记录人</th></tr></thead>
+              <tbody id="rehab-fu-tbody"><tr><td colspan="7" style="text-align:center;color:var(--text-secondary);padding:14px;">暂无随访记录</td></tr></tbody>
+            </table>
+            <div id="rehab-fu-form" style="display:none; margin-top:14px;">
+              <div class="grid-3">
+                <div><label class="field-label" style="margin-top:0">随访日期</label><input class="text-input" type="date" id="fu2-date"></div>
+                <div><label class="field-label" style="margin-top:0">疼痛评分（0-10）</label><input class="text-input" type="number" min="0" max="10" id="fu2-pain" value="3"></div>
+                <div><label class="field-label" style="margin-top:0">关节活动度（%）</label><input class="text-input" type="number" min="0" max="100" id="fu2-rom" value="55"></div>
+                <div><label class="field-label" style="margin-top:0">肿胀</label>
+                  <select class="text-input" id="fu2-swell"><option>无</option><option>轻</option><option>中</option><option>重</option></select></div>
+                <div><label class="field-label" style="margin-top:0">训练执行情况</label><input class="text-input" id="fu2-training" placeholder="如 完成手指屈伸，腕部未负重"></div>
+                <div><label class="field-label" style="margin-top:0">备注</label><input class="text-input" id="fu2-note" placeholder="主诉 / 复诊提示"></div>
+              </div>
+              <div class="review-actions" style="margin-top:12px;">
+                <button class="review-btn ok" id="rehab-fu-add">+ 保存随访</button>
+              </div>
+            </div>
+            <div id="rehab-trend" class="empty-note" style="text-align:left; margin-top:12px;"></div>
+          </div>
+        </section>
+
+        <!-- ======== 视图9：数据分析看板 ======== -->
+        <section class="view" id="view-analytics">
+          <div class="kpi-grid">
+            <div class="kpi accent" id="kpi-anal-total"><div class="k-label">累计分析影像</div><div class="k-num">—</div><div class="k-sub up">—</div></div>
+            <div class="kpi teal" id="kpi-anal-recall"><div class="k-label">验证集骨折召回</div><div class="k-num">—</div><div class="k-sub">见 docs/training/results.csv</div></div>
+            <div class="kpi" id="kpi-anal-rehab"><div class="k-label">在管康复病例</div><div class="k-num">—</div><div class="k-sub">已审核且需随访</div></div>
+            <div class="kpi" id="kpi-anal-done"><div class="k-label">已归档病例</div><div class="k-num">—</div><div class="k-sub">医师审核通过</div></div>
+          </div>
+
+          <div class="grid-2eq" style="margin-top:18px;">
+            <div class="panel">
+              <div class="panel-title">月度影像分析量趋势</div>
+              <div id="chart-monthly" class="chart-box"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">随访记录趋势（按记录日期）</div>
+              <div id="chart-accuracy" class="chart-box"></div>
+            </div>
+          </div>
+
+          <div class="grid-2eq" style="margin-top:18px;">
+            <div class="panel">
+              <div class="panel-title">康复阶段分布（例）</div>
+              <div id="chart-rehab-duration" class="chart-box"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">损伤部位 × 运动项目交叉分析</div>
+              <div id="chart-cross" class="chart-box"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">科研数据导出</div>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-line" data-export="csv">导出 CSV</button>
+                <button class="btn-line" data-export="json">导出 JSON</button>
+              </div>
+            </div>
+            <p style="font-size:13.5px;color:var(--text-secondary);line-height:1.9;">导出数据包含损伤部位、损伤类型、运动项目、康复阶段、康复周期等统计字段，适用于高校体育安全管理与运动创伤分布研究。所有导出行为记录操作日志，数据严格保护，不出售、不用于未经授权的用途。</p>
+          </div>
+        </section>
+
+        <!-- ======== 视图10：AI 影像助手 ======== -->
+        <section class="view" id="view-ai-assist">
+          <div class="compliance-bar">⚠ AI 助手基于大模型生成参考信息，仅用于信息整理与问答辅助，不构成诊断或处方；最终判断以执业医师 / 康复治疗师意见为准。</div>
+
+          <div class="panel ai-panel">
+            <div class="ai-head">
+              <div class="ai-avatar bot">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="1.8"><rect x="5" y="7" width="14" height="11" rx="2"/><path d="M12 7V4M8 4h8"/><circle cx="9.5" cy="12" r="1" fill="#fff"/><circle cx="14.5" cy="12" r="1" fill="#fff"/><path d="M9.5 15.5c.8.7 1.6 1 2.5 1s1.7-.3 2.5-1"/></svg>
+              </div>
+              <div>
+                <b>灵视医影 AI 影像助手</b>
+                <small id="ai-case-line">未选择病例 · 基于阿里云百炼大模型</small>
+              </div>
+            </div>
+
+            <div class="ai-messages" id="ai-messages">
+              <div class="ai-msg bot">
+                <div class="ai-avatar bot sm"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="7" width="14" height="11" rx="2"/><circle cx="9.5" cy="12" r="1" fill="#fff"/><circle cx="14.5" cy="12" r="1" fill="#fff"/></svg></div>
+                <div class="ai-bubble bot-bubble">
+                  您好，我是灵视医影 AI 助手，基于阿里云百炼大模型，可协助您：<br>
+                  · 解读当前病例影像与 AI 检测结果<br>
+                  · 生成 / 解释分阶段康复方案<br>
+                  · 解答运动医学与恢复时间问题<br>
+                  · 辅助整理结构化报告摘要<br>
+                  可点击下方快捷问题，或直接输入提问。
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-quick" id="ai-quick">
+              <button class="ai-q-btn" data-q="interpret">解读当前病例</button>
+              <button class="ai-q-btn" data-q="rehab">康复方案建议</button>
+              <button class="ai-q-btn" data-q="time">恢复时间咨询</button>
+              <button class="ai-q-btn" data-q="summary">生成摘要</button>
+            </div>
+
+            <div class="ai-input-bar">
+              <input type="text" class="text-input" id="ai-input" placeholder="输入问题，例如：桡骨远端骨折多久能重新打篮球？">
+              <button class="btn btn-primary btn-sm" id="ai-send">发送</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/lib/echarts.min.js"></script>
+  <script src="js/workbench.js"></script>
+</body>
+</html>

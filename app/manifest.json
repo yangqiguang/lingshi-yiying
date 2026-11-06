@@ -1,0 +1,70 @@
+{
+    "name" : "灵视医影",
+    "appid" : "__UNI__07E3120",
+    "description" : "AI 驱动的运动骨折智能诊疗与康复决策平台 · 个人康复端",
+    "versionName" : "1.2.22",
+    "versionCode" : "102",
+    "transformPx" : false,
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "background" : "#0f172a",
+        "statusbar" : {
+            "immersed" : "supportedDevice",
+            "style" : "light",
+            "background" : "#1e3a8a"
+        },
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {},
+        "distribute" : {
+            "icons" : {
+                "android" : {
+                    "mdpi" : "static/icons/android/48.png",
+                    "hdpi" : "static/icons/android/72.png",
+                    "xhdpi" : "static/icons/android/96.png",
+                    "xxhdpi" : "static/icons/android/144.png",
+                    "xxxhdpi" : "static/icons/android/192.png"
+                }
+            },
+            "android" : {
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>"
+                ],
+                "usesCleartextTraffic" : true
+            },
+            "ios" : {
+                "dSYMs" : false,
+                "plistcmds" : [ "Set :NSAppTransportSecurity:NSAllowsArbitraryLoads true" ]
+            },
+            "sdkConfigs" : {}
+        }
+    },
+    "quickapp" : {},
+    "mp-weixin" : {
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true
+    },
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "vueVersion" : "3",
+    "fallbackLocale" : "zh-Hans",
+    "locale" : "auto"
+}

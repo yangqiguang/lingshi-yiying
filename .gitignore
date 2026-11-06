@@ -1,0 +1,62 @@
+# ---------- 密钥与本地配置（绝不入库） ----------
+.dashscope_key
+.secret_key
+.env
+*.key
+*.pem
+python_path.txt
+
+# ---------- 运行期数据与日志 ----------
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+uploads/
+ai_debug.log
+
+# ---------- Python 环境与缓存 ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+runtime/
+*.egg-info/
+
+# ---------- 构建产物与二进制分发包 ----------
+*.apk
+*.exe
+*.dll
+*.so
+*.zip
+*.7z
+*.rar
+downloads/
+scripts/redist/
+app/unpackage/
+app/.hbuilderx/
+web/server/models/*.pt
+
+# ---------- 编辑器与系统 ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+*.bak
+*.bak2
+
+# ---------- 参赛材料（含身份信息，禁止入库） ----------
+参赛材料/
+上传材料/
+上传包/
+参赛包/
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.pdf
+*.mp4
+*.mov

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>下载 App · 灵视医影个人康复端</title>
+  <meta name="description" content="下载灵视医影个人康复端 App：影像报告、康复训练打卡、复诊提醒、恢复曲线与运动回归追踪。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --dl-blue:#2563eb; --dl-teal:#0ea5a0; --dl-ink:#0f172a; --dl-mut:#64748b;
+      --dl-line:#e5e7eb; --dl-bg:#f6f8fc;
+    }
+    .dl-wrap { max-width:1040px; margin:0 auto; padding:0 20px; }
+    .dl-hero { background:linear-gradient(160deg,#f8fafc 0%,#eef4ff 55%,#f0fbf9 100%); border-bottom:1px solid var(--dl-line); padding:54px 0 60px; }
+    .dl-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; }
+    .dl-kicker { display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--dl-blue); background:#e8f0ff; border:1px solid #d3e1ff; padding:5px 13px; border-radius:999px; margin-bottom:18px; }
+    .dl-title { font-size:38px; font-weight:800; color:var(--dl-ink); letter-spacing:1px; margin:0 0 10px; }
+    .dl-lead { font-size:16px; color:var(--dl-mut); line-height:1.8; margin:0 0 22px; }
+    .dl-points { list-style:none; padding:0; margin:0 0 28px; display:grid; grid-template-columns:1fr 1fr; gap:11px 18px; }
+    .dl-points li { display:flex; gap:9px; align-items:flex-start; font-size:14px; color:#334155; line-height:1.5; }
+    .dl-points svg { flex:0 0 auto; margin-top:1px; }
+    .dl-btn { display:flex; align-items:center; justify-content:center; gap:12px; width:100%; max-width:380px; background:var(--dl-blue); color:#fff; text-decoration:none; padding:16px 22px; border-radius:12px; font-size:17px; font-weight:700; box-shadow:0 10px 26px rgba(37,99,235,.28); transition:transform .15s, box-shadow .15s, background .15s; }
+    .dl-btn:hover { background:#1d4ed8; transform:translateY(-2px); box-shadow:0 14px 32px rgba(37,99,235,.34); }
+    .dl-btn .dl-btn-meta { display:block; font-size:12px; font-weight:400; opacity:.85; margin-top:2px; }
+    .dl-btn-text { text-align:left; line-height:1.2; }
+    .dl-ver { margin-top:14px; font-size:13px; color:var(--dl-mut); display:flex; flex-wrap:wrap; gap:6px 16px; max-width:380px; }
+    .dl-ver b { color:#334155; font-weight:600; }
+    .dl-ios { margin-top:10px; font-size:12.5px; color:#94a3b8; max-width:380px; }
+
+    /* 手机示意 */
+    .dl-phone-outer { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; }
+.dl-qr { background:#fff; border:1px solid var(--dl-line); border-radius:16px; padding:14px; display:flex; gap:14px; align-items:center; width:308px; box-shadow:0 12px 30px rgba(15,23,42,.10); }
+.dl-qr-img { width:96px; height:96px; flex:0 0 96px; display:flex; align-items:center; justify-content:center; background:#fff; }
+.dl-qr-img svg { width:96px; height:96px; display:block; }
+.dl-qr-text b { font-size:14px; color:var(--dl-ink); display:block; margin-bottom:5px; }
+.dl-qr-text span { font-size:12px; color:var(--dl-mut); line-height:1.5; display:block; }
+.dl-qr-local { font-size:11px; color:#94a3b8; text-align:center; line-height:1.7; padding:4px; }
+    .dl-phone { width:270px; height:548px; background:#0f172a; border-radius:38px; padding:13px; box-shadow:0 30px 70px rgba(15,23,42,.32); position:relative; }
+    .dl-phone::before { content:""; position:absolute; top:20px; left:50%; transform:translateX(-50%); width:96px; height:20px; background:#0f172a; border-radius:0 0 14px 14px; z-index:3; }
+    .dl-screen { width:100%; height:100%; background:#f6f8fc; border-radius:27px; overflow:hidden; display:flex; flex-direction:column; align-items:center; padding:46px 20px 0; }
+    .dl-screen img { width:64px; height:64px; border-radius:16px; box-shadow:0 8px 20px rgba(37,99,235,.25); }
+    .dl-p-name { font-size:20px; font-weight:800; color:var(--dl-ink); margin-top:12px; letter-spacing:1px; }
+    .dl-p-sub { font-size:12px; color:var(--dl-mut); margin-top:3px; }
+    .dl-p-card { width:100%; background:#fff; border:1px solid var(--dl-line); border-radius:16px; padding:16px; margin-top:22px; box-shadow:0 6px 18px rgba(15,23,42,.06); }
+    .dl-p-card .lab { font-size:12px; color:var(--dl-mut); }
+    .dl-p-card .val { font-size:30px; font-weight:800; color:var(--dl-teal); margin-top:2px; }
+    .dl-p-bar { height:7px; background:#e6eef0; border-radius:99px; margin-top:10px; overflow:hidden; }
+    .dl-p-bar i { display:block; width:78%; height:100%; background:linear-gradient(90deg,#0ea5a0,#22d3c5); border-radius:99px; }
+    .dl-p-list { width:100%; margin-top:14px; display:flex; flex-direction:column; gap:9px; }
+    .dl-p-row { height:38px; background:#fff; border:1px solid var(--dl-line); border-radius:11px; display:flex; align-items:center; padding:0 13px; font-size:12.5px; color:#475569; gap:9px; }
+    .dl-p-row i { width:9px; height:9px; border-radius:50%; background:#c7d7fe; display:block; }
+    .dl-p-tabs { margin-top:auto; width:calc(100% + 0px); border-top:1px solid var(--dl-line); background:#fff; display:flex; }
+    .dl-p-tabs span { flex:1; text-align:center; font-size:11px; color:#94a3b8; padding:11px 0 14px; }
+    .dl-p-tabs span.on { color:var(--dl-blue); font-weight:700; }
+
+    /* 区块通用 */
+    .dl-sec { padding:56px 0; }
+    .dl-sec.alt { background:var(--dl-bg); border-top:1px solid var(--dl-line); border-bottom:1px solid var(--dl-line); }
+    .dl-h2 { font-size:25px; font-weight:800; color:var(--dl-ink); text-align:center; margin:0 0 8px; }
+    .dl-h2-sub { text-align:center; font-size:14px; color:var(--dl-mut); margin:0 0 36px; }
+    .dl-feat { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .dl-feat-card { background:#fff; border:1px solid var(--dl-line); border-radius:16px; padding:24px 18px; text-align:center; }
+    .dl-feat-ic { width:48px; height:48px; border-radius:13px; background:#eaf1ff; color:var(--dl-blue); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+    .dl-feat-card h3 { font-size:15.5px; font-weight:700; color:var(--dl-ink); margin:0 0 8px; }
+    .dl-feat-card p { font-size:13px; color:var(--dl-mut); line-height:1.65; margin:0; }
+    .dl-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .dl-step { background:#fff; border:1px solid var(--dl-line); border-radius:16px; padding:26px 22px; position:relative; }
+    .dl-step-num { width:34px; height:34px; border-radius:50%; background:var(--dl-teal); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .dl-step h3 { font-size:16px; margin:0 0 8px; color:var(--dl-ink); }
+    .dl-step p { font-size:13.5px; color:var(--dl-mut); line-height:1.7; margin:0; }
+    .dl-note { max-width:760px; margin:30px auto 0; background:#fff; border:1px dashed #c3d4ff; border-left:4px solid var(--dl-blue); border-radius:12px; padding:18px 22px; font-size:13.5px; color:#475569; line-height:1.8; }
+    .dl-disclaimer { text-align:center; font-size:12.5px; color:#94a3b8; line-height:1.8; margin-top:26px; }
+    .dl-bottom-cta { text-align:center; margin-top:40px; }
+    .dl-bottom-cta .dl-btn { margin:0 auto; }
+
+    @media (max-width:860px){
+      .dl-grid { grid-template-columns:1fr; gap:40px; }
+      .dl-phone-outer { order:-1; }
+      .dl-feat { grid-template-columns:1fr 1fr; }
+      .dl-title { font-size:30px; }
+    }
+    @media (max-width:560px){
+      .dl-points { grid-template-columns:1fr; }
+      .dl-feat { grid-template-columns:1fr; }
+      .dl-steps { grid-template-columns:1fr; }
+      .dl-hero { padding:38px 0 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 顶部导航 ========== -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.png" alt="灵视医影 Logo" class="logo-img" style="width:50px;height:auto;">
+        <span class="logo-text">灵视医影</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">系统入口</a>
+        <a href="capabilities.html" class="nav-link">产品能力</a>
+        <a href="flow.html" class="nav-link">服务闭环</a>
+        <a href="compliance.html" class="nav-link">安全合规</a>
+        <a href="about.html" class="nav-link">项目介绍</a>
+        <a href="download.html" class="nav-link active">App下载</a>
+      </nav>
+      <div class="header-right">
+        <a href="login.html" class="top-login-tag">登录</a>
+        <span class="top-login-divider">/</span>
+        <a href="login.html#register" class="top-login-tag">注册</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== 下载主区 ========== -->
+    <section class="dl-hero">
+      <div class="dl-wrap">
+        <div class="dl-grid">
+          <div>
+            <span class="dl-kicker">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+              个人康复端 · Android
+            </span>
+            <h1 class="dl-title">下载灵视医影 App</h1>
+            <p class="dl-lead">把专业的运动骨折康复指导装进口袋。与医护工作台数据协同，从影像报告、每日训练到运动回归，全周期陪伴康复。</p>
+            <ul class="dl-points">
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0ea5a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>影像报告与初诊 / 复查前后对比</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0ea5a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>每日训练打卡与疼痛自评</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0ea5a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>异常预警与复诊日历提醒</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0ea5a0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>恢复曲线与运动回归阶梯</li>
+            </ul>
+            <a class="dl-btn" href="downloads/lingshi-yiying-app.apk" download="灵视医影App.apk">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18l7-5 7 5V3z"/></svg>
+              <span class="dl-btn-text">下载 Android 版<span class="dl-btn-meta">灵视医影App.apk · 15.2 MB</span></span>
+            </a>
+            <div class="dl-ver">
+              <span>版本 <b>v1.2.22</b></span>
+              <span>更新于 <b>2026-11-05</b></span>
+              <span>系统 <b>Android 8.0 及以上</b></span>
+            </div>
+            <p class="dl-ios">iOS 版本正在准备中，当前请使用 Android 设备安装体验。</p>
+          </div>
+
+          <div class="dl-phone-outer">
+            <div class="dl-phone">
+              <div class="dl-screen">
+                <img src="assets/logo.png" alt="灵视医影">
+                <div class="dl-p-name">灵视医影</div>
+                <div class="dl-p-sub">个人康复端</div>
+                <div class="dl-p-card">
+                  <div class="lab">当前恢复度</div>
+                  <div class="val">78%</div>
+                  <div class="dl-p-bar"><i></i></div>
+                </div>
+                <div class="dl-p-list">
+                  <div class="dl-p-row"><i></i>今日康复训练 · 3 个动作</div>
+                  <div class="dl-p-row"><i></i>复诊提醒 · 10-08 09:00</div>
+                  <div class="dl-p-row"><i></i>影像报告 · 复查对比</div>
+                </div>
+                <div class="dl-p-tabs"><span class="on">首页</span><span>报告</span><span>方案</span><span>我的</span></div>
+              </div>
+            </div>
+            <div class="dl-qr" id="dlQr">
+              <div class="dl-qr-img" id="dlQrImg"></div>
+              <div class="dl-qr-text"><b>安卓手机扫码下载</b><span>用手机浏览器扫码，直接下载安装包</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 功能亮点 ========== -->
+    <section class="dl-sec">
+      <div class="dl-wrap">
+        <h2 class="dl-h2">核心功能</h2>
+        <p class="dl-h2-sub">面向运动骨折康复期患者，与医护工作台双端协同</p>
+        <div class="dl-feat">
+          <div class="dl-feat-card">
+            <div class="dl-feat-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <h3>影像报告</h3>
+            <p>随时查看本人 X 光与结构化报告，初诊与复查影像左右滑动对比，愈合进展清晰可见。</p>
+          </div>
+          <div class="dl-feat-card">
+            <div class="dl-feat-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <h3>训练打卡</h3>
+            <p>按康复方案逐日完成训练动作并打卡，训练后疼痛自评，数据同步给康复治疗师。</p>
+          </div>
+          <div class="dl-feat-card">
+            <div class="dl-feat-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+            <h3>复诊与预警</h3>
+            <p>复诊安排一键加入手机系统日历；出现疼痛异常等情况及时预警并联系医护人员。</p>
+          </div>
+          <div class="dl-feat-card">
+            <div class="dl-feat-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></div>
+            <h3>恢复曲线</h3>
+            <p>每次复评的量化评分形成恢复曲线，运动回归阶梯清晰显示距离重返赛场的进度。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 安装步骤 ========== -->
+    <section class="dl-sec alt">
+      <div class="dl-wrap">
+        <h2 class="dl-h2">三步完成安装</h2>
+        <p class="dl-h2-sub">Android 手机首次安装需允许浏览器安装未知来源应用</p>
+        <div class="dl-steps">
+          <div class="dl-step">
+            <div class="dl-step-num">1</div>
+            <h3>下载安装包</h3>
+            <p>点击上方「下载 Android 版」按钮，将灵视医影App.apk 保存到手机。</p>
+          </div>
+          <div class="dl-step">
+            <div class="dl-step-num">2</div>
+            <h3>允许并安装</h3>
+            <p>在通知栏或文件管理中点击安装包，按提示允许「安装未知来源应用」后完成安装。</p>
+          </div>
+          <div class="dl-step">
+            <div class="dl-step-num">3</div>
+            <h3>登录使用</h3>
+            <p>使用机构管理员分发的账号登录，或选择「仅浏览模式」先行体验完整界面。</p>
+          </div>
+        </div>
+        <div class="dl-bottom-cta">
+          <a class="dl-btn" href="downloads/lingshi-yiying-app.apk" download="灵视医影App.apk">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M5 21h14"/></svg>
+            <span class="dl-btn-text">立即下载安装包<span class="dl-btn-meta">灵视医影App.apk · 15.2 MB · v1.2.22</span></span>
+          </a>
+        </div>
+        <p class="dl-disclaimer">本应用为全国大学生数字媒体科技作品及创意竞赛参赛作品，页面所示为演示数据；AI 结果仅供辅助参考，不构成医疗诊断，最终诊疗与康复安排以执业医师意见为准。</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> 灵视医影团队 · XX学院 · 全国大学生数字媒体科技作品及创意竞赛项目</p>
+    </div>
+  </footer>
+
+  <script src="js/lib/qrcode.min.js"></script>
+  <script>
+  (function () {
+    var box = document.getElementById('dlQr'), img = document.getElementById('dlQrImg');
+    var apk = new URL('downloads/lingshi-yiying-app.apk', location.href).href;
+    if (location.protocol === 'file:') {
+      img.innerHTML = '<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7M14 21h3M21 17v4"/></svg>';
+      var _cap = box.querySelector('.dl-qr-text span'); if (_cap) _cap.textContent = '页面部署到服务器后，手机扫码即可下载';
+    } else if (window.qrcode) {
+      try { var qr = qrcode(0, 'M'); qr.addData(apk); qr.make(); img.innerHTML = qr.createSvgTag(4, 2); } catch (e) { box.style.display = 'none'; }
+    }
+  })();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

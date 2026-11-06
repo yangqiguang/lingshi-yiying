@@ -1,0 +1,31 @@
+# 灵视医影 · Python 侧依赖清单（精确版本）
+# 对应《第三方资源说明》第五节第 1 项：逐项列明组件名称与版本。
+# 版本取自作品包自带 Python 3.10.11 便携运行环境中各发行包的 dist-info，
+# 与部署包实际运行版本一致；原 requirements.txt 使用 >= 范围约束，此处为锁版本记录。
+
+# ---- 直接依赖（运行时） ----
+flask==3.1.3
+werkzeug==3.1.9
+itsdangerous==2.2.0
+jinja2==3.1.6
+markupsafe==3.0.4
+blinker==1.9.0
+click==8.5.0
+numpy==2.2.6
+pillow==12.3.0
+onnxruntime==1.23.2
+waitress==3.0.2
+
+# ---- 传递依赖（随上述组件安装） ----
+coloredlogs==15.0.1
+flatbuffers==25.12.19
+packaging==26.3
+
+# ---- 训练环境依赖（不进入线上运行环境） ----
+# ultralytics==8.4.188   （YOLO26n 训练与 ONNX 导出，AGPL-3.0）
+# torch                  （训练框架，BSD-3-Clause；版本以训练机环境为准）
+
+# ---- 标准库，无需安装 ----
+# sqlite3（Python 内置，Public Domain）
+
+# 说明：网页端与 App 端共用同一后端，依赖集完全相同，无第二份 requirements。

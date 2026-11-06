@@ -1,0 +1,31 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "灵视医影",
+				"backgroundColor": "#0f172a",
+				"backgroundColorContent": "#0f172a",
+				"disableScroll": true,
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none",
+					"scrollIndicator": "none",
+					"scalable": false
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "灵视医影",
+		"backgroundColor": "#0f172a",
+		"backgroundColorContent": "#0f172a",
+		"app-plus": {
+			"bounce": "none"
+		}
+	},
+	"uniIdRouter": {}
+}

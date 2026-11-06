@@ -1,0 +1,9 @@
+# 灵视医影 · 网页后端「核心依赖」
+# 完整依赖装不上时的降级方案：不含 onnxruntime。
+# 装上它网站可以正常登录、建档、写报告、审核，只有影像 AI 分析会提示「模型未就绪」。
+flask>=3.0
+werkzeug>=3.0
+itsdangerous>=2.1
+numpy>=1.24
+Pillow>=10.0
+waitress>=2.1

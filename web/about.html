@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目介绍 · 灵视医影</title>
+  <meta name="description" content="灵视医影——AI 驱动的运动骨折智能诊疗与康复决策平台项目介绍：项目背景、三大核心技术、研发历程与团队平台依托。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== about 页面专用样式 ===== */
+    .page-header .lead-tags { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:26px; }
+    .lead-tag { font-size:13px; color:#0f766e; background:#f0fdfa; border:1px solid #99f6e4; padding:5px 14px; border-radius:999px; }
+
+    /* 痛点卡片 */
+    .pain-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .pain-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:26px 24px; }
+    .pain-ico { width:46px; height:46px; border-radius:12px; background:#eff6ff; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .pain-card:nth-child(2) .pain-ico { background:#f0fdfa; }
+    .pain-card:nth-child(3) .pain-ico { background:#fffbeb; }
+    .pain-card h3 { font-size:17px; margin-bottom:8px; }
+    .pain-card p { color:var(--text-secondary); font-size:14px; line-height:1.8; }
+
+    /* 数据统计 */
+    .stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:40px; }
+    .stat-box { text-align:center; background:linear-gradient(160deg,#eff6ff 0%,#f0fdfa 100%); border:1px solid #dbeafe; border-radius:var(--radius); padding:28px 18px; }
+    .stat-box .s-num { font-size:34px; font-weight:800; color:var(--primary); line-height:1.1; font-variant-numeric:tabular-nums; }
+    .stat-box:nth-child(2) .s-num { color:var(--accent); }
+    .stat-box .s-label { font-size:14px; font-weight:600; margin-top:8px; }
+    .stat-box .s-note { font-size:12px; color:var(--text-secondary); margin-top:4px; }
+
+    /* 技术卡片（左边框） */
+    .tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .tech-card { background:#fff; border:1px solid var(--border); border-left:4px solid var(--primary); border-radius:12px; box-shadow:var(--shadow); padding:26px 24px; }
+    .tech-card.t2 { border-left-color:var(--accent); }
+    .tech-card.t3 { border-left-color:#7c3aed; }
+    .tech-badge { display:inline-block; font-size:12px; font-weight:700; color:#fff; background:var(--primary); border-radius:6px; padding:3px 10px; margin-bottom:12px; }
+    .tech-card.t2 .tech-badge { background:var(--accent); }
+    .tech-card.t3 .tech-badge { background:#7c3aed; }
+    .tech-card h3 { font-size:17px; margin-bottom:10px; }
+    .tech-card p { color:var(--text-secondary); font-size:14px; line-height:1.85; margin-bottom:10px; }
+    .tech-card ul { padding-left:18px; color:var(--text-secondary); font-size:13.5px; line-height:1.9; }
+
+    /* 项目历程：左侧竖线时间轴 */
+    .timeline-project { max-width:820px; margin:0 auto; position:relative; padding-left:8px; }
+    .tp-item { position:relative; padding:0 0 26px 150px; }
+    .tp-item:last-child { padding-bottom:0; }
+    .tp-item::before { content:""; position:absolute; left:128px; top:6px; bottom:-6px; width:2px; background:var(--border); }
+    .tp-item:last-child::before { display:none; }
+    .tp-dot { position:absolute; left:122px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 4px #dbeafe; z-index:1; }
+    .tp-item:nth-child(even) .tp-dot { background:var(--accent); box-shadow:0 0 0 4px #ccfbf1; }
+    .tp-date { position:absolute; left:0; top:0; width:110px; text-align:right; font-size:15px; font-weight:700; color:var(--primary); }
+    .tp-body { background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:14px 18px; }
+    .tp-body b { font-size:14.5px; }
+    .tp-body p { font-size:13.5px; color:var(--text-secondary); margin-top:3px; line-height:1.7; }
+
+    /* 合作 / 依托机构 */
+    .partner-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .partner-card { background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:22px 18px; text-align:center; }
+    .partner-ico { width:44px; height:44px; margin:0 auto 12px; border-radius:12px; background:#eff6ff; display:flex; align-items:center; justify-content:center; }
+    .partner-card:nth-child(even) .partner-ico { background:#f0fdfa; }
+    .partner-card h4 { font-size:15px; margin-bottom:6px; }
+    .partner-card p { font-size:12.5px; color:var(--text-secondary); line-height:1.7; }
+
+    .info-grid { display:grid; grid-template-columns:1.1fr 1fr; gap:26px; margin-top:40px; align-items:start; }
+    .info-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); padding:26px 28px; }
+    .info-card h3 { font-size:17px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .info-card h3::before { content:""; width:4px; height:16px; background:var(--primary); border-radius:2px; }
+    .info-card ul { list-style:none; }
+    .info-card li { padding:9px 0; border-bottom:1px dashed var(--border); font-size:14px; color:var(--text-secondary); display:flex; gap:8px; }
+    .info-card li:last-child { border-bottom:none; }
+    .info-card li b { color:var(--text-color); }
+    .principle { background:#f0fdfa; border:1px solid #99f6e4; }
+    .principle h3::before { background:var(--accent); }
+
+    @media (max-width: 900px) {
+      .pain-grid, .tech-grid, .stat-row { grid-template-columns:1fr; }
+      .partner-grid { grid-template-columns:repeat(2,1fr); }
+      .info-grid { grid-template-columns:1fr; }
+      .tp-item { padding-left:120px; }
+      .tp-item::before { left:104px; }
+      .tp-dot { left:98px; }
+      .tp-date { width:86px; font-size:13.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 顶部导航 ========== -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.png" alt="灵视医影 Logo" class="logo-img" style="width:50px;height:auto;">
+        <span class="logo-text">灵视医影</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="nav-link">系统入口</a>
+        <a href="capabilities.html" class="nav-link">产品能力</a>
+        <a href="flow.html" class="nav-link">服务闭环</a>
+        <a href="compliance.html" class="nav-link">安全合规</a>
+        <a href="about.html" class="nav-link active">项目介绍</a>
+        <a href="download.html" class="nav-link">App下载</a>
+      </nav>
+      <div class="header-right">
+        <a href="login.html" class="top-login-tag">登录</a>
+        <span class="top-login-divider">/</span>
+        <a href="login.html#register" class="top-login-tag">注册</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== 标题区 ========== -->
+    <section class="page-header">
+      <div class="container">
+        <div class="lead-tags reveal">
+          <span class="lead-tag">全国大学生数字媒体科技作品及创意竞赛</span>
+          <span class="lead-tag">XX学院</span>
+        </div>
+        <h1 class="reveal">灵视医影 · 项目介绍</h1>
+        <p class="reveal">AI 驱动的运动骨折智能诊疗与康复决策平台——连接"受伤 → 诊断 → 治疗 → 康复 → 回归运动"全流程，以影像辅助识别为起点，以专业复核与康复闭环为核心。</p>
+        <div class="hero-actions reveal">
+          <a href="index.html" class="btn btn-primary">进入系统</a>
+          <a href="login.html" class="btn btn-accent">查看工作台 →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 一、项目背景 ========== -->
+    <section class="section" id="background">
+      <div class="container">
+        <h2 class="section-title reveal">项目背景</h2>
+        <p class="section-sub reveal">诊断不是终点，康复与运动回归才是关键——现有服务链条仍存在明显断点</p>
+
+        <div class="pain-grid">
+          <article class="pain-card reveal">
+            <div class="pain-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+            </div>
+            <h3>难衔接 · 诊断与康复脱节</h3>
+            <p>影像报告出具后，诊疗结论难以衔接后续功能锻炼，鲜有专业运动指导。康复师、教练多靠口头描述、聊天截图或纸质报告了解伤情，信息遗漏、理解偏差、记录不连续。</p>
+          </article>
+          <article class="pain-card reveal">
+            <div class="pain-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0ea5a0" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <h3>难评估 · 回归缺乏客观依据</h3>
+            <p>部分运动人员疼痛减轻后便自行恢复高强度训练，但骨骼愈合、肌肉力量与关节稳定性可能尚未恢复，极易造成二次损伤。能否回归训练缺少可追踪的客观评估。</p>
+          </article>
+          <article class="pain-card reveal">
+            <div class="pain-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#d97706" stroke-width="1.8"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg>
+            </div>
+            <h3>难落地 · 基层缺少智能工具</h3>
+            <p>基层医疗机构、校园医务室、训练机构与赛事保障团队缺少面向运动骨折的智能辅助工具，影像结果等待时间长、专业人员不足，成熟产品又多聚焦医院内部单病种。</p>
+          </article>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box reveal">
+            <div class="s-num">14200<small style="font-size:18px;"> 亿元</small></div>
+            <div class="s-label">中国医疗 AI 辅助系统市场规模</div>
+            <div class="s-note">2026 年测算（2015–2026 持续增长）</div>
+          </div>
+          <div class="stat-box reveal">
+            <div class="s-num">10724<small style="font-size:18px;"> 家</small></div>
+            <div class="s-label">医疗 AI 相关企业数量</div>
+            <div class="s-note">广东、北京、上海、江苏等地集聚明显</div>
+          </div>
+          <div class="stat-box reveal">
+            <div class="s-num">37.2<small style="font-size:18px;">%</small></div>
+            <div class="s-label">市场年增长率</div>
+            <div class="s-note">AI 助力医学影像诊断前景广阔</div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:12px;color:#9aa3af;margin-top:16px;">注：以上为医疗 AI 行业公开市场数据，用于说明赛道背景，不代表本项目已实现的经营业绩。</p>
+      </div>
+    </section>
+
+    <!-- ========== 二、三大核心技术 ========== -->
+    <section class="section section-alt" id="tech">
+      <div class="container">
+        <h2 class="section-title reveal">三大核心技术</h2>
+        <p class="section-sub reveal">影像智能识别 · 多模态数据融合 · 个性化康复决策，构成从识别到回归的技术闭环</p>
+
+        <div class="tech-grid">
+          <article class="tech-card reveal">
+            <span class="tech-badge">技术一</span>
+            <h3>影像智能识别（YOLO26n）</h3>
+            <p>在团队目标检测技术积累上，针对腕部、踝部等常见运动损伤部位建立专项辅助识别模型；检测模型已由早期 YOLOv11 基线迭代升级为 YOLO26n。</p>
+            <ul>
+              <li>多尺度特征提取 + 注意力机制，强化细小骨折线、骨皮质中断识别</li>
+              <li>以边界框 / 热力图 / 轮廓标记疑似区域，输出模型置信度</li>
+              <li>图像增强、困难样本挖掘、分部位训练，提升泛化能力</li>
+              <li>只作"疑似提示"，不使用"确诊 / 排除"等确定性表述</li>
+            </ul>
+          </article>
+          <article class="tech-card t2 reveal">
+            <span class="tech-badge">技术二</span>
+            <h3>多模态数据融合与动态对比</h3>
+            <p>结合 YOLO26n 识别模型与阿里云百炼大模型智能分析，融合影像、病历与随访数据。</p>
+            <ul>
+              <li>全面讲解影像中的问题，实现影像自动识别与解读</li>
+              <li>自动生成结构化诊断报告，病理—影像协同标注</li>
+              <li>历次影像与评估动态对比，量化愈合与功能恢复进展</li>
+              <li>专业人员可确认、修改、驳回，差异回流用于模型优化</li>
+            </ul>
+          </article>
+          <article class="tech-card t3 reveal">
+            <span class="tech-badge">技术三</span>
+            <h3>个性化康复决策与闭环管理</h3>
+            <p>将经医生确认的诊断信息，转化为分阶段、可追踪的康复与运动回归方案。</p>
+            <ul>
+              <li>按周阶段生成训练动作、禁忌动作与复评节点初稿</li>
+              <li>康复档案记录疼痛、活动度、肌力、承重与训练完成情况</li>
+              <li>日常活动 → 力量 → 跑跳 → 变向 → 对抗 → 专项的回归阶梯</li>
+              <li>是否回归高强度训练与比赛，必须由专业人员判定</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 三、项目历程 ========== -->
+    <section class="section" id="timeline">
+      <div class="container">
+        <h2 class="section-title reveal">项目历程</h2>
+        <p class="section-sub reveal">从一线痛点发现，到模型训练、平台开发与试点落地的研发路径</p>
+
+        <div class="timeline-project">
+          <div class="tp-item reveal">
+            <div class="tp-date">2024.12</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>发现痛点 · 确定方向</b>
+              <p>团队成员实习中发现运动骨折康复存在"诊断与训练脱节"问题，确定项目方向，开展行业调研。</p>
+            </div>
+          </div>
+          <div class="tp-item reveal">
+            <div class="tp-date">2025.01</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>数据采集 · 模型初训</b>
+              <p>采集骨折影像数据集，基于 YOLOv11 完成骨折病灶检测模型初步训练。</p>
+            </div>
+          </div>
+          <div class="tp-item reveal">
+            <div class="tp-date">2025.05</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>网页平台 · 接入大模型</b>
+              <p>开发网页端平台，接入大模型，基于影像结果自动生成康复评估参考报告。</p>
+            </div>
+          </div>
+          <div class="tp-item reveal">
+            <div class="tp-date">2025.08</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>模型优化 · 精度提升</b>
+              <p>优化 YOLOv11 模型，提升骨折区域分割与损伤分级评估精度。</p>
+            </div>
+          </div>
+          <div class="tp-item reveal">
+            <div class="tp-date">2025.10</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>试点落地 · 闭环验证</b>
+              <p>拟联合合作医院开展试点落地，验证"影像诊断 → 康复训练"的闭环方案。</p>
+            </div>
+          </div>
+          <div class="tp-item reveal">
+            <div class="tp-date">2026.09</div>
+            <div class="tp-dot"></div>
+            <div class="tp-body">
+              <b>系统迭代 · 赛事打磨</b>
+              <p>在系统迭代阶段将检测模型由 YOLOv11 升级为 YOLO26n，重训并导出 ONNX 权重；完善多角色工作台、康复方案制定与数据分析看板，参加全国大学生数字媒体科技作品及创意竞赛，持续推进试点合作。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 四、团队与平台依托 ========== -->
+    <section class="section section-alt" id="team">
+      <div class="container">
+        <h2 class="section-title reveal">团队与平台依托</h2>
+        <p class="section-sub reveal">跨专业五人团队，依托高校实验平台与医学专家指导</p>
+
+        <div class="partner-grid">
+          <div class="partner-card reveal">
+            <div class="partner-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg>
+            </div>
+            <h4>XX学院</h4>
+            <p>项目依托高校，跨通信、计算机、产品与商业管理的创新创业团队。</p>
+          </div>
+          <div class="partner-card reveal">
+            <div class="partner-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0ea5a0" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <h4>机器视觉与智能系统实验平台</h4>
+            <p>提供模型训练、系统开发、技术测试与科研交流的计算与实验条件。</p>
+          </div>
+          <div class="partner-card reveal">
+            <div class="partner-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#2563eb" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M12 7v6M9 10h6"/></svg>
+            </div>
+            <h4>XX肿瘤医院</h4>
+            <p>临床医学与影像判读方面由外部专家提供指导。</p>
+          </div>
+          <div class="partner-card reveal">
+            <div class="partner-ico">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0ea5a0" stroke-width="1.8"><path d="M4 19V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v13"/><path d="M4 19h16M9 8h2M9 12h2M13 8h2M13 12h2"/></svg>
+            </div>
+            <h4>XX中医药大学</h4>
+            <p>医学信息与系统建设方面由外部专家提供指导。</p>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card reveal">
+            <h3>项目信息与团队分工</h3>
+            <ul>
+              <li><b>项目名称：</b>灵视医影——AI 驱动的运动骨折智能诊疗与康复决策平台</li>
+              <li><b>赛事：</b>2026年第十四届全国大学生数字媒体科技作品及创意竞赛</li>
+              <li><b>负责人：</b>杨同学（总体规划 · 技术协调 · 进度管理）</li>
+              <li><b>算法研发：</b>沈同学（数据处理 · 模型训练 · 性能评价）</li>
+              <li><b>系统产品：</b>张同学（前后端开发 · 页面设计 · 部署测试）</li>
+              <li><b>市场运营：</b>刘同学（用户调研 · 商业模式 · 财务测算）</li>
+              <li><b>医学顾问：</b>宋同学（影像标注 · 医学术语 · 康复边界）</li>
+              <li><b>项目性质：</b>学生团队原创作品</li>
+            </ul>
+          </div>
+          <div class="info-card principle reveal">
+            <h3>产品原则</h3>
+            <ul>
+              <li><b>医生主导：</b>AI 仅作辅助，最终诊断与回归决定由专业人员作出</li>
+              <li><b>结果标注：</b>所有 AI 输出标注"辅助参考"，保留医生复核环节</li>
+              <li><b>数据合规：</b>账号分级、最小权限、隐私保护、传输加密、操作留痕</li>
+              <li><b>康复可追踪：</b>阶段训练、复评节点与回归评估全程记录</li>
+              <li><b>分步验证：</b>一期聚焦腕部、踝部，验证一个再扩展一个</li>
+              <li><b>真实研发：</b>不以虚构论文、专利、合作机构或经营收入包装项目</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> 灵视医影团队 · XX学院 · 全国大学生数字媒体科技作品及创意竞赛项目</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

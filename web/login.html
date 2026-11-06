@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 / 注册 · 灵视医影工作台</title>
+  <meta name="description" content="灵视医影——AI 驱动的运动骨折智能诊疗与康复决策平台，工作台登录与注册。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='white' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/workbench.css">
+  <style>
+    /* ============ 登录 / 注册页（白色背景，与全站浅色统一） ============ */
+    .auth-body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
+
+    .auth-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 32px;
+    }
+    .auth-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13.5px; color: var(--text-secondary);
+      border: 1px solid var(--border); border-radius: 8px; background: #fff;
+      padding: 6px 14px; transition: all .2s;
+    }
+    .auth-back:hover { color: var(--primary); border-color: var(--primary); background: #eff6ff; }
+
+    .auth-main { flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 18px 20px 56px; }
+    .auth-wrap { width: 100%; max-width: 440px; }
+    .auth-head { text-align: center; margin-bottom: 22px; }
+    .auth-head h1 { color: var(--text-color); font-size: 25px; letter-spacing: 1px; font-weight: 800; }
+    .auth-head p { color: var(--text-secondary); font-size: 13.5px; margin-top: 10px; line-height: 1.7; }
+
+    .auth-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 24px 28px 22px;
+      box-shadow: 0 18px 50px rgba(15,23,42,.10);
+      text-align: left;
+    }
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+    .auth-tab {
+      flex: 1; padding: 12px 0; background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); font-size: 15px; font-weight: 600;
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s;
+    }
+    .auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    .auth-pane[hidden] { display: none; }
+    .auth-card select.text-input { appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+    .auth-card select.text-input option { color: #1a1b1c; }
+    .auth-card .btn-primary { margin-top: 20px; }
+
+    .reg-ok {
+      display: none; align-items: flex-start; gap: 8px;
+      background: #f0fdfa; border: 1px solid #99f6e4;
+      color: #0d9488; font-size: 13px; line-height: 1.6;
+      padding: 10px 12px; border-radius: 10px; margin-bottom: 14px;
+    }
+    .reg-ok.show { display: flex; }
+    .reg-ok svg { flex: 0 0 auto; margin-top: 2px; }
+
+    .auth-foot { text-align: center; color: var(--text-secondary); font-size: 12px; margin-top: 18px; line-height: 1.7; }
+
+    @media (max-width: 600px) {
+      .auth-top { padding: 14px 18px; }
+      .auth-main { padding: 10px 16px 40px; }
+      .auth-head h1 { font-size: 21px; }
+      .auth-card { padding: 20px 18px 18px; border-radius: 16px; }
+      .auth-back span { display: none; }   /* 窄屏只留箭头，节省空间 */
+    }
+  </style>
+</head>
+<body class="auth-body">
+  <header class="auth-top">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.png" alt="灵视医影 Logo" class="logo-img" style="width:42px;height:auto;">
+      <span class="logo-text">灵视医影</span>
+    </a>
+    <a href="index.html" class="auth-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      <span>返回首页</span>
+    </a>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-wrap">
+      <div class="auth-head">
+        <h1>灵视医影 · 工作台</h1>
+        <p>AI 驱动的运动骨折智能诊疗与康复决策平台<br>影像辅助识别 · 专业复核 · 康复档案 · 运动回归管理</p>
+      </div>
+
+      <div class="auth-card">
+        <div class="auth-tabs" role="tablist">
+          <button type="button" class="auth-tab active" data-tab="login" role="tab">登录</button>
+          <button type="button" class="auth-tab" data-tab="register" role="tab">注册</button>
+        </div>
+
+        <!-- ========== 登录 ========== -->
+        <form class="auth-pane" id="pane-login" autocomplete="off">
+          <label class="field-label">选择角色</label>
+          <div class="role-grid" id="role-grid">
+            <label class="role-opt">
+              <input type="radio" name="role" value="执业医师" checked>
+              <span class="role-name">执业医师</span>
+              <span class="role-desc">审核技师报告 · 确认归档</span>
+            </label>
+            <label class="role-opt">
+              <input type="radio" name="role" value="影像技师">
+              <span class="role-name">影像技师</span>
+              <span class="role-desc">上传影像 · 模型定位 · 写报告</span>
+            </label>
+            <label class="role-opt">
+              <input type="radio" name="role" value="康复治疗师">
+              <span class="role-name">康复治疗师</span>
+              <span class="role-desc">康复深化 · 周期随访</span>
+            </label>
+            <label class="role-opt">
+              <input type="radio" name="role" value="机构管理员">
+              <span class="role-name">机构管理员</span>
+              <span class="role-desc">账号权限 · 系统维护</span>
+            </label>
+            <label class="role-opt">
+              <input type="radio" name="role" value="患者">
+              <span class="role-name">患者</span>
+              <span class="role-desc">查看本人档案 · 只读</span>
+            </label>
+          </div>
+
+          <p class="login-note" style="margin:8px 0 14px;">选择角色后自动填入对应演示账号，直接点击「进入工作台」即可。</p>
+
+          <label class="field-label" for="login-user">账号</label>
+          <input class="text-input" id="login-user" name="username" type="text" placeholder="请输入手机号" value="13800000001">
+
+          <label class="field-label" for="login-pass">密码</label>
+          <input class="text-input" id="login-pass" name="password" type="password" placeholder="请输入密码" value="123456">
+
+          <button type="submit" class="btn btn-primary btn-block" id="login-btn">进入工作台 →</button>
+          <p class="login-note">影像与 AI 结果仅作辅助参考，不构成任何医疗诊断。</p>
+        </form>
+
+        <!-- ========== 注册 ========== -->
+        <form class="auth-pane" id="pane-register" hidden autocomplete="off">
+          <div class="reg-ok" id="reg-ok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.4l2.4 2.4L16 9.4"/></svg>
+            <span>注册申请已提交，将由机构管理员审核开通。即将返回登录。</span>
+          </div>
+
+          <label class="field-label" for="reg-name">姓名</label>
+          <input class="text-input" id="reg-name" type="text" placeholder="请输入真实姓名">
+
+          <label class="field-label" for="reg-phone">手机号</label>
+          <input class="text-input" id="reg-phone" type="tel" placeholder="用于接收审核结果通知">
+
+          <label class="field-label" for="reg-org">所属机构</label>
+          <input class="text-input" id="reg-org" type="text" placeholder="医院 / 高校体育部门 / 康复机构">
+
+          <label class="field-label" for="reg-role">申请角色</label>
+          <select class="text-input" id="reg-role">
+            <option value="执业医师">执业医师（审核技师报告 · 确认归档）</option>
+            <option value="影像技师">影像技师（上传影像 · 模型定位 · 撰写报告）</option>
+            <option value="康复治疗师">康复治疗师（康复深化 · 随访记录）</option>
+            <option value="机构管理员">机构管理员（账号权限 · 系统维护）</option>
+            <option value="患者">患者（查看本人档案 · 只读）</option>
+          </select>
+
+          <label class="field-label" for="reg-pass">设置密码</label>
+          <input class="text-input" id="reg-pass" type="password" placeholder="至少 8 位，含字母与数字">
+
+          <label class="field-label" for="reg-pass2">确认密码</label>
+          <input class="text-input" id="reg-pass2" type="password" placeholder="请再次输入密码">
+
+          <button type="submit" class="btn btn-primary btn-block" id="reg-btn">提交注册申请</button>
+          <p class="login-note">注册申请提交后，账号权限由机构管理员审核开通。</p>
+        </form>
+      </div>
+
+      <p class="auth-foot">登录即代表同意《用户协议》与《隐私政策》 · 数据全程加密、最小权限、操作留痕</p>
+      <p style="text-align:center;margin:12px 0 0;font-size:13px;"><a href="download.html" style="color:#2563eb;font-weight:600;text-decoration:none;">下载灵视医影 Android App →</a></p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('.auth-tab');
+      var paneLogin = document.getElementById('pane-login');
+      var paneReg = document.getElementById('pane-register');
+      var regOk = document.getElementById('reg-ok');
+
+      function switchTab(tab) {
+        var isReg = tab === 'register';
+        tabs[0].classList.toggle('active', !isReg);
+        tabs[1].classList.toggle('active', isReg);
+        paneLogin.hidden = isReg;
+        paneReg.hidden = !isReg;
+        if (isReg) { regOk.classList.remove('show'); }
+        history.replaceState(null, '', isReg ? '#register' : location.pathname);
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { switchTab(t.getAttribute('data-tab')); });
+      });
+
+      // 登录：调用后端 /api/auth/login，成功后带 token 进入工作台
+      paneLogin.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var user = document.getElementById('login-user').value.trim();
+        var pass = document.getElementById('login-pass').value;
+        var checked = document.querySelector('input[name="role"]:checked');
+        var role = checked ? checked.value : '执业医师';
+        var btn = document.getElementById('login-btn');
+        if (!user || !pass) { alert('请输入账号和密码'); return; }
+        btn.disabled = true; btn.textContent = '登录中…';
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: user, password: pass, role: role })
+        }).then(function (r) { return r.json(); }).then(function (data) {
+          if (data.ok) {
+            try {
+              localStorage.setItem('lingshi_token', data.token);
+              localStorage.setItem('lingshi_user', JSON.stringify(data.user));
+            } catch (err) {}
+            location.href = 'dashboard.html?role=' + encodeURIComponent(data.user.role);
+          } else {
+            alert(data.error || '登录失败');
+            btn.disabled = false; btn.textContent = '进入工作台 →';
+          }
+        }).catch(function () {
+          alert('无法连接后端服务，请先在 server 目录运行 python app.py');
+          btn.disabled = false; btn.textContent = '进入工作台 →';
+        });
+      });
+
+      // 角色 → 演示账号（与 App 端 LOCAL_ACCOUNTS、后端 SEED_USERS 完全一致）
+      // 选中角色即自动填入账号密码，无需手打，也无需额外的「体验登录」入口
+      var ROLE_ACCOUNTS = {
+        '执业医师':   '13800000001',
+        '影像技师':   '13800000002',
+        '康复治疗师': '13800000003',
+        '机构管理员': '13800000004',
+        '患者':       '13700000001'
+      };
+      function fillLoginByRole() {
+        var checked = document.querySelector('input[name="role"]:checked');
+        var acc = ROLE_ACCOUNTS[checked ? checked.value : '执业医师'];
+        if (!acc) return;
+        document.getElementById('login-user').value = acc;
+        document.getElementById('login-pass').value = '123456';
+      }
+      document.getElementById('role-grid').addEventListener('change', fillLoginByRole);
+      fillLoginByRole();
+
+      // 注册：提交到后端，等待管理员审核
+      paneReg.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pass1 = document.getElementById('reg-pass').value;
+        var pass2 = document.getElementById('reg-pass2').value;
+        var payload = {
+          name:   document.getElementById('reg-name').value.trim(),
+          phone:  document.getElementById('reg-phone').value.trim(),
+          org:    document.getElementById('reg-org').value.trim(),
+          role:   document.getElementById('reg-role').value,
+          password: pass1
+        };
+        if (!payload.name || !payload.phone || !payload.org) { alert('请完整填写姓名、手机号、所属机构'); return; }
+        if (pass1.length < 8) { alert('密码至少 8 位'); return; }
+        if (pass1 !== pass2) { alert('两次输入的密码不一致'); return; }
+        var btn = document.getElementById('reg-btn');
+        btn.disabled = true; btn.textContent = '提交中…';
+        fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function (r) { return r.json(); }).then(function (data) {
+          btn.disabled = false; btn.textContent = '提交注册申请';
+          if (data.ok) {
+            regOk.classList.add('show');
+            setTimeout(function () { switchTab('login'); }, 1800);
+          } else {
+            alert(data.error || '注册失败');
+          }
+        }).catch(function () {
+          alert('无法连接后端服务，请先启动 server/app.py');
+          btn.disabled = false; btn.textContent = '提交注册申请';
+        });
+      });
+
+      // 直达注册（导航“注册”带 #register）
+      if (location.hash === '#register') { switchTab('register'); }
+
+      // 从工作台“切换账号”跳回：清空预填账号并聚焦，便于重新输入 / 选择角色
+      if (/[?&]switch=1/.test(location.search)) {
+        var switchUser = document.getElementById('login-user');
+        if (switchUser) { switchUser.value = ''; setTimeout(function () { switchUser.focus(); }, 60); }
+      }
+
+      // 浏览器后退/前进从缓存恢复页面时，重置按钮状态（避免卡在"登录中…"）
+      window.addEventListener('pageshow', function (e) {
+        var btn = document.getElementById('login-btn');
+        if (btn) { btn.disabled = false; btn.textContent = '进入工作台 →'; }
+        var regBtn = document.getElementById('reg-btn');
+        if (regBtn) { regBtn.disabled = false; regBtn.textContent = '提交注册申请'; }
+      });
+    })();
+  </script>
+</body>
+</html>
